@@ -24,13 +24,15 @@ def token_required(f):
         token = None
         if 'Authorization' in request.headers:
             token = request.headers['Authorization']
-            URL="http://195.15.218.172/security/manager_app/viewset/role/?token="+token
-            r = requests.get(url=URL)
-            if r.status_code != 200:
+            '''URL="http://195.15.218.172/security/manager_app/viewset/role/"
+            params ={"token":token}
+            r = requests.post(url=URL,params=params)
+            print(r)'''
+            if token:
                 return {'message': 'Token is invalid.'}, 403
         if not token:
             return {'message': 'Token is missing or not found.'}, 401
-        if r.status_code == 200:
+        if token :
             pass
         return f(*args, **kwargs)
     return decorated
@@ -47,6 +49,11 @@ participant = participant1.namespace('/api/participant', \
     on the application.", \
     path = '/v1/')
 
+bancaire =participant.model('bancaire', {
+    "RIB": fields.String(required=False,default=" ", description="Users Rib"),
+    "compte bancaire":fields.String(required=False,default=" ", description="compte bancaire"),
+})
+
 parti= participant.model('participant', {
     "nom": fields.String(required=False,default=" ", description="Users nom"),
     "prenom":fields.String(required=False,default=" ", description="Users prenom"),
@@ -54,6 +61,7 @@ parti= participant.model('participant', {
     "adresse":fields.String(required=False,default=" ", description="Users adresse"),
     "trigramme":fields.String(required=False,default=" ", description="Users trigramme"),
     "role":fields.String(required=False,default=" ", description="Users role"),
+    "bancaire_data": fields.List(fields.Nested(bancaire))
 })
 
 client= participant.model('client', {
@@ -62,11 +70,7 @@ client= participant.model('client', {
     "prenom":fields.String(required=False,default=" ", description="Users prenom"),
 })
 
-bancaire =participant.model('bancaire', {
-    "client_id": fields.String(required=False,default=" ", description="client id"),
-    "RIB": fields.String(required=False,default=" ", description="Users Rib"),
-    "compte bancaire":fields.String(required=False,default=" ", description="compte bancaire"),
-})
+
 @participant.doc(
     security='KEY',
     params={'start': 'Value to start from ',
@@ -117,6 +121,7 @@ class participanta(Resource):
                 }, 400
 
 @participant.doc(
+    security='KEY',
     params={},
 
     responses={
@@ -158,7 +163,6 @@ class Parti_add(Resource):
                     }, 403
 
 @participant.doc(
-    
     security='KEY',
     params={'start': 'Value to start from ',
              'limit': 'Total limit of the query',
@@ -208,6 +212,7 @@ class participantc(Resource):
                 }, 400
 
 @participant.doc(
+    security='KEY',
     params={},
 
     responses={
@@ -251,6 +256,7 @@ class Parti_client_add(Resource):
 
 
 @participant.doc(
+    security='KEY',
     params={},
 
     responses={
@@ -340,3 +346,5 @@ class participantba(Resource):
                 return{
                     "res":"participant service down"
                 }, 400
+
+    
