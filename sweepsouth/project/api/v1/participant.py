@@ -65,7 +65,7 @@ parti= participant.model('participant', {
 client= participant.model('client', {
     "utilisateur_id": fields.String(required=False,default=" ", description="utilisateur id"),
     "nom": fields.String(required=False,default=" ", description="Users nom"),
-    "prenom":fields.String(required=False,default=" ", description="Users prenom"),
+    "description":fields.String(required=False,default=" ", description="Users prenom"),
 })
 
 
