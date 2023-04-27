@@ -230,7 +230,7 @@ class Parti_client_add(Resource):
     @token_required
     @participant.expect(client)
     def post(self):
-        req_data = request.form()
+        req_data = request.form
         print(req_data['nom'])
         print(request.form)
         print(request.args)
