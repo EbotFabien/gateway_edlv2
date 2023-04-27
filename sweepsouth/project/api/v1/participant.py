@@ -48,7 +48,6 @@ participant = participant1.namespace('/api/participant', \
     path = '/v1/')
 
 parti= participant.model('participant', {
-    "id": fields.Integer(required=True),
     "nom": fields.String(required=False,default=" ", description="Users nom"),
     "prenom":fields.String(required=False,default=" ", description="Users prenom"),
     "email":fields.String(required=False,default=" ", description="Users Email"),
@@ -58,7 +57,7 @@ parti= participant.model('participant', {
 })
 
 client= participant.model('client', {
-    "participant_id": fields.String(required=False,default=" ", description="participant id"),
+    "utilisateur_id": fields.String(required=False,default=" ", description="utilisateur id"),
     "nom": fields.String(required=False,default=" ", description="Users nom"),
     "prenom":fields.String(required=False,default=" ", description="Users prenom"),
 })
@@ -177,7 +176,7 @@ class Parti_add(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @participant.route('/participant/client/all')
-class participanta(Resource):
+class participantc(Resource):
     def get(self):
         if request.args:
             start = request.args.get('start', None)
@@ -220,8 +219,51 @@ class participanta(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
+@participant.route('/participant/client/add')
+class Parti_client_add(Resource):
+    @token_required
+    @participant.expect(client)
+    def post(self):
+        req_data = request.get_json()
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+        
+
+
+@participant.doc(
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
 @participant.route('/participant/bank/add')
-class Parti_add(Resource):
+class Parti_bank_add(Resource):
     @token_required
     @participant.expect(bancaire)
     def post(self):
@@ -267,7 +309,7 @@ class Parti_add(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @participant.route('/participant/bank/all')
-class participanta(Resource):
+class participantba(Resource):
     def get(self):
         if request.args:
             start = request.args.get('start', None)
