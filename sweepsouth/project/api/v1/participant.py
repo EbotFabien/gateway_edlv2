@@ -28,8 +28,6 @@ def token_required(f):
             params ={"token":token}
             r = requests.post(url=URL,params=params)
             print(r)'''
-            if token:
-                return {'message': 'Token is invalid.'}, 403
         if not token:
             return {'message': 'Token is missing or not found.'}, 401
         if token :
