@@ -54,9 +54,12 @@ class MyApi(Api):
     @property
     def specs_url(self):
         """Monkey patch for HTTPS"""
-        #scheme = 'http' if '8055' in self.base_url else 'https'
-        #return url_for(self.endpoint('specs'), _external=True, _scheme=scheme)
-        return url_for(self.endpoint('specs'), _external=False)
+        scheme = 'http' if '8055' in self.base_url else 'https'
+        url=url_for(self.endpoint('specs'), _external=True)
+        prefix=url.split('/swagger.json')[0]
+        prefix=prefix.split('/api')[0]
+        url=prefix +'/edlgateway'+'/swagger.json'
+        return  url
 
     
 api = Blueprint('api', __name__, template_folder = '../templates')
