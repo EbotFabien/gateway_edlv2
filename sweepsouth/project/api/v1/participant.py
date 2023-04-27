@@ -231,7 +231,7 @@ class Parti_client_add(Resource):
     @participant.expect(client)
     def post(self):
         req_data = request.get_json()
-        print(req_data)
+        print(req_data['nom'])
         print(request.form)
         print(request.args)
         token=request.headers['Authorization']
