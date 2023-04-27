@@ -22,10 +22,10 @@ def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = None
-        if 'API-KEY' in request.headers:
-            token = request.headers['API-KEY']
+        if 'Authorization' in request.headers:
+            token = request.headers['Authorization']
             try:
-                data = jwt.decode(token, app.config.get('SECRET_KEY'))
+                data =token
             except:
                 return {'message': 'Token is invalid.'}, 403
         if not token:
@@ -47,12 +47,33 @@ participant = participant1.namespace('/api/participant', \
     on the application.", \
     path = '/v1/')
 
+parti= participant.model('participant', {
+    "id": fields.Integer(required=True),
+    "nom": fields.String(required=False,default=" ", description="Users nom"),
+    "prenom":fields.String(required=False,default=" ", description="Users prenom"),
+    "email":fields.String(required=False,default=" ", description="Users Email"),
+    "adresse":fields.String(required=False,default=" ", description="Users adresse"),
+    "trigramme":fields.String(required=False,default=" ", description="Users trigramme"),
+    "role":fields.String(required=False,default=" ", description="Users role"),
+})
+
+client= participant.model('client', {
+    "participant_id": fields.String(required=False,default=" ", description="participant id"),
+    "nom": fields.String(required=False,default=" ", description="Users nom"),
+    "prenom":fields.String(required=False,default=" ", description="Users prenom"),
+})
+
+bancaire =participant.model('bancaire', {
+    "client_id": fields.String(required=False,default=" ", description="client id"),
+    "RIB": fields.String(required=False,default=" ", description="Users Rib"),
+    "compte bancaire":fields.String(required=False,default=" ", description="compte bancaire"),
+})
 @participant.doc(
     security='KEY',
     params={'start': 'Value to start from ',
              'limit': 'Total limit of the query',
              'count': 'Number results per page',
-            'category': 'category'
+            
             },
     responses={
         200: 'ok',
@@ -79,7 +100,7 @@ class participanta(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/participant/participant/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -88,7 +109,186 @@ class participanta(Resource):
                     "count": count,
                     "next": next,
                     "previous": previous,
-                    "results": marshal(results1,r.json())
+                    "results": r.json()
+                }, 200
+            else:
+                return{
+                    "res":"participant service down"
+                }, 400
+
+@participant.doc(
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@participant.route('/participant/add')
+class Parti_add(Resource):
+    @token_required
+    @participant.expect(parti)
+    def post(self):
+        req_data = request.get_json()
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/participant/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+@participant.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@participant.route('/participant/client/all')
+class participanta(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.218.172/participant/Client/tous"
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results": r.json()
+                }, 200
+            else:
+                return{
+                    "res":"participant service down"
+                }, 400
+
+@participant.doc(
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@participant.route('/participant/bank/add')
+class Parti_add(Resource):
+    @token_required
+    @participant.expect(bancaire)
+    def post(self):
+        req_data = request.get_json()
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/info_bancaire/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+        
+
+@participant.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@participant.route('/participant/bank/all')
+class participanta(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.218.172/participant/info_bancaire/tous"
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results": r.json()
                 }, 200
             else:
                 return{
