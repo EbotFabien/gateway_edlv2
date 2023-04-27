@@ -230,9 +230,9 @@ class Parti_client_add(Resource):
     @token_required
     @participant.expect(client)
     def post(self):
-        req_data = request.form
-        print(req_data['nom'])
-        print(request.form)
+        req_data = request.get_json()
+        print(req_data)
+        print(request.form['nom'])
         print(request.args)
         print('first')
         token=request.headers['Authorization']
