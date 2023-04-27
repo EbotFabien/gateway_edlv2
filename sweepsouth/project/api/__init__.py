@@ -50,18 +50,12 @@ def token_required(f):
         return f(*args, **kwargs)
     return decorated
 
-class MyApi(Api):
-    @property
-    def specs_url(self):
-        """Monkey patch for HTTPS"""
-        scheme = 'http' if '8055' in self.base_url else 'https'
-        return url_for(self.endpoint('specs'), _external=True, _scheme=scheme)
-        #return url_for(self.endpoint('specs'), _external=False)
-    
+
 api = Blueprint('api', __name__, template_folder = '../templates')
-apisec = MyApi( app=api, doc='/docs', version='1.9.0', title='AMSV2A.', \
+apisec = Api( app=api,base_url='http://195.15.218.172/edlgatewday/api', doc='/docs', version='1.9.0', title='AMSV2A.', \
     description='This documentation contains all routes to access the AMSV2. \npip install googletransSome routes require authorization and can only be gotten \
     from the AMSV2A company', license='../LICENSE', license_url='www.sweep.com', contact='touchone0001@gmail.com', authorizations=authorizations)
+
 CORS(api, resources={r"/api/*": {"origins": "*"}})
 
 #from . import schema
