@@ -14,7 +14,7 @@ authorizations = {
     'KEY': {
         'type': 'apiKey',
         'in': 'header',
-        'name': 'API-KEY'
+        'name': 'Authorization'
     }
 }
 
@@ -24,13 +24,13 @@ def token_required(f):
         token = None
         if 'Authorization' in request.headers:
             token = request.headers['Authorization']
-            try:
-                data =token
-            except:
+            URL="http://195.15.218.172/security/manager_app/viewset/role/?token="+token
+            r = requests.get(url=URL)
+            if r.status_code != 200:
                 return {'message': 'Token is invalid.'}, 403
         if not token:
             return {'message': 'Token is missing or not found.'}, 401
-        if data:
+        if r.status_code == 200:
             pass
         return f(*args, **kwargs)
     return decorated
@@ -88,6 +88,7 @@ bancaire =participant.model('bancaire', {
     })
 @participant.route('/participant/all')
 class participanta(Resource):
+    @token_required
     def get(self):
         if request.args:
             start = request.args.get('start', None)
@@ -157,6 +158,7 @@ class Parti_add(Resource):
                     }, 403
 
 @participant.doc(
+    
     security='KEY',
     params={'start': 'Value to start from ',
              'limit': 'Total limit of the query',
@@ -177,6 +179,7 @@ class Parti_add(Resource):
     })
 @participant.route('/participant/client/all')
 class participantc(Resource):
+    @token_required
     def get(self):
         if request.args:
             start = request.args.get('start', None)
@@ -310,6 +313,7 @@ class Parti_bank_add(Resource):
     })
 @participant.route('/participant/bank/all')
 class participantba(Resource):
+    @token_required
     def get(self):
         if request.args:
             start = request.args.get('start', None)
