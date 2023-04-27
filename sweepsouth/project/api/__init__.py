@@ -54,9 +54,9 @@ class MyApi(Api):
     @property
     def specs_url(self):
         """Monkey patch for HTTPS"""
-        #scheme = 'http' if '8055' in self.base_url else 'https'
-        #return url_for(self.endpoint('specs'), _external=True, _scheme=scheme)
-        return url_for(self.endpoint('specs'), _external=False)
+        scheme = 'http' if '8055' in self.base_url else 'https'
+        return url_for(self.endpoint('specs'), _external=True, _scheme=scheme)
+        #return url_for(self.endpoint('specs'), _external=False)
     
 api = Blueprint('api', __name__, template_folder = '../templates')
 apisec = MyApi( app=api, doc='/docs', version='1.9.0', title='AMSV2A.', \
