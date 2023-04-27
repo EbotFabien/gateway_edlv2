@@ -234,6 +234,7 @@ class Parti_client_add(Resource):
         print(req_data['nom'])
         print(request.form)
         print(request.args)
+        print('first')
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/participant/Client/ajouter"
