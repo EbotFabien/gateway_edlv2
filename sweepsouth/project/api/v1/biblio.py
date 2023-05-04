@@ -15,7 +15,7 @@ authorizations = {
     'KEY': {
         'type': 'apiKey',
         'in': 'header',
-        'name': 'API-KEY'
+        'name': 'Authorization'
     }
 }
 
@@ -23,15 +23,15 @@ def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = None
-        if 'API-KEY' in request.headers:
-            token = request.headers['API-KEY']
-            try:
-                data = jwt.decode(token, app.config.get('SECRET_KEY'))
-            except:
-                return {'message': 'Token is invalid.'}, 403
+        if 'Authorization' in request.headers:
+            token = request.headers['Authorization']
+            '''URL="http://195.15.218.172/security/manager_app/viewset/role/"
+            params ={"token":token}
+            r = requests.post(url=URL,params=params)
+            print(r)'''
         if not token:
             return {'message': 'Token is missing or not found.'}, 401
-        if data:
+        if token :
             pass
         return f(*args, **kwargs)
     return decorated
@@ -47,6 +47,11 @@ biblio  = biblio1.namespace('/api/biblio', \
     description= "All routes under this section of the documentation are the open routes bots can perform CRUD action \
     on the application.", \
     path = '/v1/')
+
+
+client= biblio.model('client', {
+    "nom": fields.String(required=False,default=" ", description="Users nom")
+})
 
 
 @biblio.doc(
@@ -90,12 +95,55 @@ class clefa(Resource):
                     "count": count,
                     "next": next,
                     "previous": previous,
-                    "results": marshal(results1,r.json())
+                    "results": r.json()
                 }, 200
             else:
                 return{
                     "res":"Clefs biblio service down"
                 }, 400
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/clefs/add')
+class Parti_client_add(Resource):
+    @token_required
+    @biblio.expect(client)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
 
 @biblio.doc(
     security='KEY',
@@ -147,6 +195,94 @@ class commentairea(Resource):
 
 @biblio.doc(
     security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/commentaire/add')
+class Parti_client_add(Resource):
+    @token_required
+    @biblio.expect(client)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/compteurs/add')
+class Parti_client_add(Resource):
+    @token_required
+    @biblio.expect(client)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@biblio.doc(
+    security='KEY',
     params={'start': 'Value to start from ',
              'limit': 'Total limit of the query',
              'count': 'Number results per page',
@@ -192,6 +328,50 @@ class compteursa(Resource):
                 return{
                     "res":"compteurs biblio service down"
                 }, 400
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/extension/add')
+class Parti_client_add(Resource):
+    @token_required
+    @biblio.expect(client)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
 
 @biblio.doc(
     security='KEY',
@@ -244,6 +424,50 @@ class extensiona(Resource):
 
 @biblio.doc(
     security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/logement/add')
+class Parti_client_add(Resource):
+    @token_required
+    @biblio.expect(client)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@biblio.doc(
+    security='KEY',
     params={'start': 'Value to start from ',
              'limit': 'Total limit of the query',
              'count': 'Number results per page',
@@ -289,6 +513,49 @@ class logementa(Resource):
                 return{
                     "res":"logement biblio service down"
                 }, 400
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/piece/add')
+class Parti_client_add(Resource):
+    @token_required
+    @biblio.expect(client)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
 
 @biblio.doc(
     security='KEY',
@@ -340,6 +607,50 @@ class piecea(Resource):
 
 @biblio.doc(
     security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/rubric/add')
+class Parti_client_add(Resource):
+    @token_required
+    @biblio.expect(client)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@biblio.doc(
+    security='KEY',
     params={'start': 'Value to start from ',
              'limit': 'Total limit of the query',
              'count': 'Number results per page',
@@ -385,6 +696,49 @@ class rubrica(Resource):
                 return{
                     "res":"rubric biblio service down"
                 }, 400
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/typecom/add')
+class Parti_client_add(Resource):
+    @token_required
+    @biblio.expect(client)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
 
 @biblio.doc(
     security='KEY',
@@ -436,6 +790,50 @@ class typecoma(Resource):
 
 @biblio.doc(
     security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/typeloge/add')
+class Parti_client_add(Resource):
+    @token_required
+    @biblio.expect(client)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@biblio.doc(
+    security='KEY',
     params={'start': 'Value to start from ',
              'limit': 'Total limit of the query',
              'count': 'Number results per page',
@@ -481,6 +879,50 @@ class typelogea(Resource):
                 return{
                     "res":"typeloge biblio service down"
                 }, 400
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/voie/add')
+class Parti_client_add(Resource):
+    @token_required
+    @biblio.expect(client)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
 
 @biblio.doc(
     security='KEY',
