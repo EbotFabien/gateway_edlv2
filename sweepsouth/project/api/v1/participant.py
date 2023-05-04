@@ -193,7 +193,7 @@ class participantc(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/participant/Client/tous"/Client/vide
+            URL="http://195.15.218.172/participant/Client/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
