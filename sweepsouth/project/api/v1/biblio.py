@@ -86,7 +86,7 @@ class clefa(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/biblio/Clefs/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -119,7 +119,7 @@ class clefa(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @biblio.route('/clefs/add')
-class Parti_client_add(Resource):
+class clefsadd(Resource):
     @token_required
     @biblio.expect(client)
     def post(self):
@@ -127,7 +127,7 @@ class Parti_client_add(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/Client/ajouter"
+            URL="http://195.15.218.172/biblio/Clefs/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -177,7 +177,7 @@ class commentairea(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/biblio/commentaire/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -186,7 +186,7 @@ class commentairea(Resource):
                     "count": count,
                     "next": next,
                     "previous": previous,
-                    "results": marshal(results1,r.json())
+                    "results": r.json()
                 }, 200
             else:
                 return{
@@ -210,7 +210,7 @@ class commentairea(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @biblio.route('/commentaire/add')
-class Parti_client_add(Resource):
+class commentadd(Resource):
     @token_required
     @biblio.expect(client)
     def post(self):
@@ -218,7 +218,7 @@ class Parti_client_add(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/Client/ajouter"
+            URL="http://195.15.218.172/biblio/commentaire/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -254,7 +254,7 @@ class Parti_client_add(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @biblio.route('/compteurs/add')
-class Parti_client_add(Resource):
+class compteuradd(Resource):
     @token_required
     @biblio.expect(client)
     def post(self):
@@ -262,7 +262,7 @@ class Parti_client_add(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/Client/ajouter"
+            URL="http://195.15.218.172/biblio/compteurs/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -313,7 +313,7 @@ class compteursa(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/biblio/compteurs/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -322,7 +322,7 @@ class compteursa(Resource):
                     "count": count,
                     "next": next,
                     "previous": previous,
-                    "results": marshal(results1,r.json())
+                    "results": r.json()
                 }, 200
             else:
                 return{
@@ -346,7 +346,7 @@ class compteursa(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @biblio.route('/extension/add')
-class Parti_client_add(Resource):
+class extensionadd(Resource):
     @token_required
     @biblio.expect(client)
     def post(self):
@@ -354,7 +354,7 @@ class Parti_client_add(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/Client/ajouter"
+            URL="http://195.15.218.172/biblio/extension/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -405,7 +405,7 @@ class extensiona(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/biblio/extension/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -414,7 +414,7 @@ class extensiona(Resource):
                     "count": count,
                     "next": next,
                     "previous": previous,
-                    "results": marshal(results1,r.json())
+                    "results": r.json()
                 }, 200
             else:
                 return{
@@ -439,7 +439,7 @@ class extensiona(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @biblio.route('/logement/add')
-class Parti_client_add(Resource):
+class logementadd(Resource):
     @token_required
     @biblio.expect(client)
     def post(self):
@@ -447,7 +447,7 @@ class Parti_client_add(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/Client/ajouter"
+            URL="http://195.15.218.172/biblio/logement/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -498,7 +498,7 @@ class logementa(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/biblio/logement/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -507,7 +507,7 @@ class logementa(Resource):
                     "count": count,
                     "next": next,
                     "previous": previous,
-                    "results": marshal(results1,r.json())
+                    "results": r.json()
                 }, 200
             else:
                 return{
@@ -531,7 +531,7 @@ class logementa(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @biblio.route('/piece/add')
-class Parti_client_add(Resource):
+class pieceadd(Resource):
     @token_required
     @biblio.expect(client)
     def post(self):
@@ -539,7 +539,7 @@ class Parti_client_add(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/Client/ajouter"
+            URL="http://195.15.218.172/biblio/piece/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -589,7 +589,7 @@ class piecea(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/biblio/piece/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -598,7 +598,7 @@ class piecea(Resource):
                     "count": count,
                     "next": next,
                     "previous": previous,
-                    "results": marshal(results1,r.json())
+                    "results": r.json()
                 }, 200
             else:
                 return{
@@ -622,7 +622,7 @@ class piecea(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @biblio.route('/rubric/add')
-class Parti_client_add(Resource):
+class rubricadd(Resource):
     @token_required
     @biblio.expect(client)
     def post(self):
@@ -630,7 +630,7 @@ class Parti_client_add(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/Client/ajouter"
+            URL="http://195.15.218.172/biblio/Rubric/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -681,7 +681,7 @@ class rubrica(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/biblio/Rubric/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -690,7 +690,7 @@ class rubrica(Resource):
                     "count": count,
                     "next": next,
                     "previous": previous,
-                    "results": marshal(results1,r.json())
+                    "results": r.json()
                 }, 200
             else:
                 return{
@@ -714,7 +714,7 @@ class rubrica(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @biblio.route('/typecom/add')
-class Parti_client_add(Resource):
+class typecomadd(Resource):
     @token_required
     @biblio.expect(client)
     def post(self):
@@ -722,7 +722,7 @@ class Parti_client_add(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/Client/ajouter"
+            URL="http://195.15.218.172/biblio/typecom/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -772,7 +772,7 @@ class typecoma(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/biblio/typecom/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -781,7 +781,7 @@ class typecoma(Resource):
                     "count": count,
                     "next": next,
                     "previous": previous,
-                    "results": marshal(results1,r.json())
+                    "results": r.json()
                 }, 200
             else:
                 return{
@@ -805,7 +805,7 @@ class typecoma(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @biblio.route('/typeloge/add')
-class Parti_client_add(Resource):
+class typelogeadd(Resource):
     @token_required
     @biblio.expect(client)
     def post(self):
@@ -813,7 +813,7 @@ class Parti_client_add(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/Client/ajouter"
+            URL="http://195.15.218.172/biblio/typeloge/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -864,7 +864,7 @@ class typelogea(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/biblio/typeloge/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -873,7 +873,7 @@ class typelogea(Resource):
                     "count": count,
                     "next": next,
                     "previous": previous,
-                    "results": marshal(results1,r.json())
+                    "results": r.json()
                 }, 200
             else:
                 return{
@@ -897,7 +897,7 @@ class typelogea(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @biblio.route('/voie/add')
-class Parti_client_add(Resource):
+class voieadd(Resource):
     @token_required
     @biblio.expect(client)
     def post(self):
@@ -905,7 +905,7 @@ class Parti_client_add(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/Client/ajouter"
+            URL="http://195.15.218.172/biblio/voie/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -956,7 +956,7 @@ class voiea(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/biblio/voie/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -965,7 +965,7 @@ class voiea(Resource):
                     "count": count,
                     "next": next,
                     "previous": previous,
-                    "results": marshal(results1,r.json())
+                    "results": r.json()
                 }, 200
             else:
                 return{
