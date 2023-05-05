@@ -69,7 +69,8 @@ client= participant.model('client', {
 })
 
 client_edit= participant.model('client_edit', {
-    "id": fields.String(required=False,default=" ", description="utilisateur id"),
+    "id": fields.String(required=False,default=" ", description="client id"),
+    "utilisateur_id": fields.String(required=False,default=" ", description="utilisateur id"),
     "nom": fields.String(required=False,default=" ", description="Users nom"),
     "description":fields.String(required=False,default=" ", description="Users prenom"),
 })
