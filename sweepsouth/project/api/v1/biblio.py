@@ -131,7 +131,8 @@ class clefsadd(Resource):
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
-                        r.json()
+                        'status': 1,
+                        'res': r.json(),
                     }, 200
             else:
                 return {
@@ -221,7 +222,8 @@ class commentadd(Resource):
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
-                        r.json()
+                        'status': 1,
+                            'res': r.json(),
                     }, 200
             else:
                 return {
@@ -264,7 +266,8 @@ class compteuradd(Resource):
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
-                        r.json()
+                        'status': 1,
+                            'res': r.json(),
                     }, 200
             else:
                 return {
@@ -355,7 +358,8 @@ class extensionadd(Resource):
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
-                        r.json()
+                        'status': 1,
+                            'res': r.json(),
                     }, 200
             else:
                 return {
@@ -447,7 +451,8 @@ class logementadd(Resource):
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
-                        r.json()
+                        'status': 1,
+                            'res': r.json(),
                     }, 200
             else:
                 return {
@@ -538,7 +543,8 @@ class pieceadd(Resource):
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
-                        r.json()
+                        'status': 1,
+                            'res': r.json(),
                     }, 200
             else:
                 return {
@@ -628,7 +634,8 @@ class rubricadd(Resource):
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
-                        r.json()
+                        'status': 1,
+                            'res': r.json(),
                     }, 200
             else:
                 return {
@@ -719,7 +726,8 @@ class typecomadd(Resource):
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
-                        r.json()
+                        'status': 1,
+                            'res': r.json(),
                     }, 200
             else:
                 return {
@@ -809,7 +817,8 @@ class typelogeadd(Resource):
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
-                        r.json()
+                        'status': 1,
+                            'res': r.json(),
                     }, 200
             else:
                 return {
@@ -900,7 +909,8 @@ class voieadd(Resource):
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
-                        r.json()
+                        'status': 1,
+                            'res': r.json(),
                     }, 200
             else:
                 return {
