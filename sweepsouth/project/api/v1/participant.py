@@ -68,6 +68,12 @@ client= participant.model('client', {
     "description":fields.String(required=False,default=" ", description="Users prenom"),
 })
 
+client_edit= participant.model('client_edit', {
+    "id": fields.String(required=False,default=" ", description="utilisateur id"),
+    "nom": fields.String(required=False,default=" ", description="Users nom"),
+    "description":fields.String(required=False,default=" ", description="Users prenom"),
+})
+
 
 @participant.doc(
     security='KEY',
@@ -300,7 +306,50 @@ class Parti_client_add(Resource):
                         'status':0,
                         'res': 'input token',
                     }, 403
+
+@participant.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@participant.route('/participant/client/update')
+class Parti_client_update(Resource):
+    @token_required
+    @participant.expect(client_edit)
+    def put(self):
+        req_data = request.json
         
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/participant/Client/update/"+req_data['id']
+            del req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
 
 
 @participant.doc(
