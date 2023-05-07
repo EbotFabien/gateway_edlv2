@@ -147,6 +147,49 @@ class clefsadd(Resource):
 
 @biblio.doc(
     security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/clefs/modify')
+class clefsmod(Resource):
+    @token_required
+    @biblio.expect(client)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/biblio/Clefs/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+        
+@biblio.doc(
+    security='KEY',
     params={'start': 'Value to start from ',
              'limit': 'Total limit of the query',
              'count': 'Number results per page',
