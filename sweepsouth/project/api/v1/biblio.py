@@ -187,7 +187,8 @@ class clefsmod(Resource):
                         'status':0,
                         'res': 'input token',
                     }, 403
-        
+
+
 @biblio.doc(
     security='KEY',
     params={'start': 'Value to start from ',
@@ -267,6 +268,49 @@ class commentadd(Resource):
                 return {
                         'status': 1,
                             'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/commentaire/modify')
+class commentairemod(Resource):
+    @token_required
+    @biblio.expect(client)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/biblio/commentaire/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
                     }, 200
             else:
                 return {
@@ -372,6 +416,50 @@ class compteursa(Resource):
                     "res":"compteurs biblio service down"
                 }, 400
 
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/compteurs/modify')
+class compteursmod(Resource):
+    @token_required
+    @biblio.expect(client)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/biblio/compteurs/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
 @biblio.doc(
     security='KEY',
     params={},
@@ -463,6 +551,49 @@ class extensiona(Resource):
                 return{
                     "res":"extensions biblio service down"
                 }, 400
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/extension/modify')
+class extensionmod(Resource):
+    @token_required
+    @biblio.expect(client)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/biblio/extension/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
 
 
 @biblio.doc(
@@ -573,6 +704,50 @@ class logementa(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
+@biblio.route('/logement/modify')
+class logementmod(Resource):
+    @token_required
+    @biblio.expect(client)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/biblio/logement/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+        
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
 @biblio.route('/piece/add')
 class pieceadd(Resource):
     @token_required
@@ -647,6 +822,50 @@ class piecea(Resource):
                 return{
                     "res":"piece biblio service down"
                 }, 400
+
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/piece/modify')
+class piecemod(Resource):
+    @token_required
+    @biblio.expect(client)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/biblio/piece/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
 
 @biblio.doc(
     security='KEY',
@@ -756,6 +975,49 @@ class rubrica(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
+@biblio.route('/Rubric/modify')
+class Rubricmod(Resource):
+    @token_required
+    @biblio.expect(client)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/biblio/Rubric/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
 @biblio.route('/typecom/add')
 class typecomadd(Resource):
     @token_required
@@ -830,6 +1092,49 @@ class typecoma(Resource):
                 return{
                     "res":"typecom biblio service down"
                 }, 400
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/typecom/modify')
+class typecommod(Resource):
+    @token_required
+    @biblio.expect(client)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/biblio/typecom/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
 
 @biblio.doc(
     security='KEY',
@@ -939,6 +1244,49 @@ class typelogea(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
+@biblio.route('/typeloge/modify')
+class typelogemod(Resource):
+    @token_required
+    @biblio.expect(client)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/biblio/typeloge/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
 @biblio.route('/voie/add')
 class voieadd(Resource):
     @token_required
@@ -1014,3 +1362,46 @@ class voiea(Resource):
                 return{
                     "res":"voie biblio service down"
                 }, 400
+
+@biblio.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/voie/modify')
+class voiemod(Resource):
+    @token_required
+    @biblio.expect(client)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/biblio/voie/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
