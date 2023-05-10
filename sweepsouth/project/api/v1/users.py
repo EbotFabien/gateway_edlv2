@@ -93,7 +93,7 @@ class usera(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/Admin/tous"
+            URL="http://195.15.218.172/edluser/Agentsec/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -133,16 +133,20 @@ class Update(Resource):
         token = request.headers['Authorization']
         if token:
             
-            URL="http://195.15.218.172/agent_app/agent/"+str(user_data['id'])
+            URL="http://195.15.218.172/edluser/Agentsec/"+str(user_data['id'])
             headers ={"Authorization":token}
             #for key,value in user_data.iteritems():
             #    if value == None:
             #        del user_data[key]
 
-            del user_data['id']
+            
             print(user_data)
             r = requests.post(url=URL,headers=headers,json=user_data)
-            print(r.headers)
+            if r.status_code == 200:
+		return{
+			'status':1,
+			'res':r.json(),
+		    },200
                
                 
         else:
