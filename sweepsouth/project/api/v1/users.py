@@ -141,7 +141,16 @@ class Update(Resource):
 
             
             r = requests.post(url=URL,headers=headers,json=user_data)
-            print(r.headers)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
                
                 
         else:
