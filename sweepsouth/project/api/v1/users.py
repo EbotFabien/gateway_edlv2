@@ -133,7 +133,7 @@ class Update(Resource):
         token = request.headers['Authorization']
         if token:
             
-            URL="http://195.15.218.172/edluser/Agentsec/"+int(user_data['id'])
+            URL="http://195.15.218.172/edluser/Agentsec/"+str(user_data['id'])
             headers ={"Authorization":token}
             #for key,value in user_data.iteritems():
             #    if value == None:
