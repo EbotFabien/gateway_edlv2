@@ -188,11 +188,12 @@ class Signup(Resource):
                 del signup_data["compte_client"]
                 r = requests.post(url=URL,headers=headers,json=signup_data)
                 v=r.json()
+                print (v)
                 v[0]['mdp']=signup_data["mdp"]
                 v[0]['compte_client']=compte
 
                 if r.status_code == 200 :
-                    url1="http://127.0.0.1:8025/util/ajouter/all"
+                    url1="http://195.15.218.172/synchro/util/ajouter/all"
                     r2 = requests.post(url=url1,json=v)
                     return {
                             'status': 1,
@@ -226,7 +227,7 @@ class Signup(Resource):
                 
 
                 if r.status_code == 200 :
-                    url1="http://127.0.0.1:8025/util/ajouter/done"
+                    url1="http://195.15.218.172/synchro/util/ajouter/done"
                     r2 = requests.post(url=url1,json=v)
                     return {
                             'status': 1,
