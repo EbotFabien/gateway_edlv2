@@ -139,7 +139,7 @@ class Update(Resource):
             #for key,value in user_data.iteritems():
             #    if value == None:
             #        del user_data[key]
-
+            del user_data['id']
             
 
             r = requests.put(url=URL,headers=headers,json=user_data)
