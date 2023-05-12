@@ -55,9 +55,9 @@ users2= users.model('users', {
     "email":fields.String(required=False,default=" ", description="Users Email"),
     "mdp":fields.String(required=False,default=" ", description="Users mdp"),
     "adresse":fields.String(required=False,default=" ", description="Users adresse"),
-    "trigramme":fields.String(required=False,default=" ", description="Users trigramme"),
-    "role":fields.String(required=False,default=" ", description="Users role"),
+    "telephone":fields.String(required=False,default=" ", description="Users trigramme"),
 })
+ 
 
 
 
