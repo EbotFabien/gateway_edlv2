@@ -151,7 +151,7 @@ class Update(Resource):
                     }, 200
             else:
                 return {
-                        'status':0,
+                        'status':r.status_code,
                         'res': 'failed',
                     }, 400
                
