@@ -55,9 +55,9 @@ users2= users.model('users', {
     "email":fields.String(required=False,default=" ", description="Users Email"),
     "mdp":fields.String(required=False,default=" ", description="Users mdp"),
     "adresse":fields.String(required=False,default=" ", description="Users adresse"),
-    "trigramme":fields.String(required=False,default=" ", description="Users trigramme"),
-    "role":fields.String(required=False,default=" ", description="Users role"),
+    "telephone":fields.String(required=False,default=" ", description="Users trigramme"),
 })
+ 
 
 
 
@@ -145,10 +145,17 @@ class Update(Resource):
             r = requests.put(url=URL,headers=headers,json=user_data)
 
             if r.status_code == 200 :
+                v=r.json()
+                
+                v[0]['mdp']=user_data["mdp"]
+                url1="http://195.15.218.172/synchro/util/edit/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
+                        'synchro_status':r2.status_code,
                         'res': r.json(),
                     }, 200
+                
             else:
                 return {
                         'status':r.status_code,
