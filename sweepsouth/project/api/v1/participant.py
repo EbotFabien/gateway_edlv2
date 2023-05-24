@@ -152,10 +152,14 @@ class Parti_add(Resource):
             URL="http://195.15.218.172/participant/participant/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                url1="http://195.15.218.172/synchro/parti/ajouter/"
+                r2 = requests.post(url=url1,json=r.json())
                 return {
                         'status': 1,
+                        'synchro_status':r2.status_code,
                         'res': r.json(),
                     }, 200
+                
             else:
                 return {
                         'status':0,
