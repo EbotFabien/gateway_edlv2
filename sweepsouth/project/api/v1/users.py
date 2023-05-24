@@ -225,8 +225,11 @@ class Update(Resource):
 
             if r.status_code == 200 :
                 v=r.json()
-                
-                v[0]['mdp']=user_data["mdp"]
+                try:
+                    if user_data["mdp"] != "":
+                        v[0]['mdp']=user_data["mdp"]
+                except:
+                    pass
                 url1="http://195.15.218.172/synchro/util/edit/"
                 r2 = requests.post(url=url1,json=v)
                 return {
