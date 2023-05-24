@@ -229,7 +229,7 @@ class Update(Resource):
                     if user_data["mdp"] != "":
                         v[0]['mdp']=user_data["mdp"]
                 except:
-                    pass
+                    v[0]['mdp']=""
                 url1="http://195.15.218.172/synchro/util/edit/"
                 r2 = requests.post(url=url1,json=v)
                 return {
