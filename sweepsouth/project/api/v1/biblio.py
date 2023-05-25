@@ -203,6 +203,7 @@ class clefsmod(Resource):
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/Clefs/update/"+req_data['id']
+            del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -370,6 +371,7 @@ class commentairemod(Resource):
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/commentaire/update/"+req_data['id']
+            del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -539,6 +541,7 @@ class compteursmod(Resource):
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/compteurs/update/"+req_data['id']
+            del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -674,6 +677,7 @@ class extensionmod(Resource):
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/extension/update/"+req_data['id']
+            del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -875,6 +879,7 @@ class logementmod(Resource):
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/logement/update/"+req_data['id']
+            del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1043,6 +1048,7 @@ class piecemod(Resource):
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/piece/update/"+req_data['id']
+            del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1210,6 +1216,7 @@ class Rubricmod(Resource):
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/Rubric/update/"+req_data['id']
+            del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1377,6 +1384,7 @@ class typecommod(Resource):
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/typecom/update/"+req_data['id']
+            del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1544,6 +1552,7 @@ class typelogemod(Resource):
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/typeloge/update/"+req_data['id']
+            del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1711,6 +1720,7 @@ class voiemod(Resource):
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/voie/update/"+req_data['id']
+            del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
