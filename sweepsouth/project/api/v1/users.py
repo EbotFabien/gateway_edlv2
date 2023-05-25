@@ -89,7 +89,7 @@ class usera(Resource):
             # Still to fix the next and previous WRT Sqlalchemy
            
             
-            URL="http://195.15.218.172/edluser/Agentsec/tous/"+start+'/'+limit
+            URL="http://195.15.218.172/edluser/Agentsec/tous/"+start+'/'+limit+'/'
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
