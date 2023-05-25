@@ -81,9 +81,9 @@ class clefa(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/clefs/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/clefs/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/biblio/Clefs/tous"
@@ -216,9 +216,9 @@ class commentairea(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/commentaire/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/commentaire/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/biblio/commentaire/tous"
@@ -395,9 +395,9 @@ class compteursa(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/compteurs/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/compteurs/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/biblio/compteurs/tous"
@@ -531,9 +531,9 @@ class extensiona(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/extension/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/extension/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/biblio/extension/tous"
@@ -667,9 +667,9 @@ class logementa(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/logement/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/logement/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/biblio/logement/tous"
@@ -802,9 +802,9 @@ class piecea(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/piece/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/piece/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/biblio/piece/tous"
@@ -938,9 +938,9 @@ class rubrica(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/rubric/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/rubric/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/biblio/Rubric/tous"
@@ -1072,9 +1072,9 @@ class typecoma(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/typecom/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/typecom/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/biblio/typecom/tous"
@@ -1207,9 +1207,9 @@ class typelogea(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/typeloge/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/typeloge/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/biblio/typeloge/tous"
@@ -1342,9 +1342,9 @@ class voiea(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/voie/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/voie/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/biblio/voie/tous"
