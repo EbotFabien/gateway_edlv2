@@ -104,9 +104,9 @@ class participanta(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/participant/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/participant/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/participant/participant/tous"
@@ -199,9 +199,9 @@ class participantc(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/participant/client/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/participant/client/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/participant/Client/tous"
@@ -248,9 +248,9 @@ class participantcv(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/participant/client/vide?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/participant/client/vide?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/participant/Client/vide"
@@ -428,9 +428,9 @@ class participantba(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
+            next = "/api/v1/participant/bank/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
+            previous = "/api/v1/participant/bank/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
             URL="http://195.15.218.172/participant/info_bancaire/tous"
