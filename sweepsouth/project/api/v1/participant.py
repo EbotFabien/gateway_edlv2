@@ -103,7 +103,7 @@ class participanta(Resource):
             start = request.args.get('start', None)
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
-            # Still to fix the next and previous WRT Sqlalchemy
+            
             next = "/api/v1/participant/all?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
             previous = "/api/v1/participant/all?start=" + \
