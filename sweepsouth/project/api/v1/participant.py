@@ -52,7 +52,7 @@ bancaire =participant.model('bancaire', {
     "compte bancaire":fields.String(required=False,default=" ", description="compte bancaire"),
 })
 
-parti= participant.model('participant', {
+parti= participant.model('parti', {
     "nom": fields.String(required=False,default=" ", description="Users nom"),
     "prenom":fields.String(required=False,default=" ", description="Users prenom"),
     "email":fields.String(required=False,default=" ", description="Users Email"),
