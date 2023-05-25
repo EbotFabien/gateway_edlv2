@@ -104,6 +104,38 @@ class clefa(Resource):
 
 @biblio.doc(
     security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/single/clefs/')
+class clefsi(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/biblio/Clefs/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+@biblio.doc(
+    security='KEY',
     params={},
 
     responses={
@@ -235,6 +267,38 @@ class commentairea(Resource):
             else:
                 return{
                     "res":"Commentaire biblio service down"
+                }, 400
+
+@biblio.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/single/commentaire/')
+class commentairesin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/biblio/commentaire/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
                 }, 400
 
 @biblio.doc(
@@ -416,6 +480,38 @@ class compteursa(Resource):
                     "res":"compteurs biblio service down"
                 }, 400
 
+@biblio.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/single/compteurs/')
+class compteursin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/biblio/compteurs/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
 
 @biblio.doc(
     security='KEY',
@@ -595,6 +691,38 @@ class extensionmod(Resource):
                         'res': 'input token',
                     }, 403
 
+@biblio.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/single/extension/')
+class extensions(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/biblio/extension/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
 
 @biblio.doc(
     security='KEY',
@@ -687,6 +815,39 @@ class logementa(Resource):
                 return{
                     "res":"logement biblio service down"
                 }, 400
+            
+@biblio.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/single/logement/')
+class logemensin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/biblio/logement/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
 
 @biblio.doc(
     security='KEY',
@@ -821,6 +982,38 @@ class piecea(Resource):
             else:
                 return{
                     "res":"piece biblio service down"
+                }, 400
+
+@biblio.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/single/piece/')
+class piecesin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/biblio/piece/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
                 }, 400
 
 
@@ -961,6 +1154,38 @@ class rubrica(Resource):
 
 @biblio.doc(
     security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/single/rubric/')
+class rubricsin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/biblio/Rubric/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+@biblio.doc(
+    security='KEY',
     params={},
 
     responses={
@@ -1093,6 +1318,39 @@ class typecoma(Resource):
                     "res":"typecom biblio service down"
                 }, 400
 
+
+@biblio.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/single/typecom/')
+class typecomsin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/biblio/typecom/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
 @biblio.doc(
     security='KEY',
     params={},
@@ -1178,6 +1436,38 @@ class typelogeadd(Resource):
                         'status':0,
                         'res': 'input token',
                     }, 403
+
+@biblio.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/single/typeloge/')
+class typelogesin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/biblio/typeloge/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
 
 
 @biblio.doc(
@@ -1361,6 +1651,38 @@ class voiea(Resource):
             else:
                 return{
                     "res":"voie biblio service down"
+                }, 400
+
+@biblio.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@biblio.route('/single/voie/')
+class voiesin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/biblio/voie/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
                 }, 400
 
 @biblio.doc(
