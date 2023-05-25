@@ -87,20 +87,16 @@ class usera(Resource):
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
             # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/users/all?start=" + \
-                str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/users/all?start=" + \
-                str(int(start)-1)+"&limit="+limit+"&count="+count
+           
             
-            URL="http://195.15.218.172/edluser/Agentsec/tous"
+            URL="http://195.15.218.172/edluser/Agentsec/tous/"+start+'/'+limit
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
                     "start": start,
                     "limit": limit,
                     "count": count,
-                    "next": next,
-                    "previous": previous,
+                    
                     "results":r.json()
                 }, 200
             else:
