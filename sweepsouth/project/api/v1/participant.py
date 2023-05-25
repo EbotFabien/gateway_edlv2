@@ -173,6 +173,38 @@ class Parti_add(Resource):
 
 @participant.doc(
     security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@participant.route('/single/participant/')
+class partis(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/participant/participant/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+@participant.doc(
+    security='KEY',
     params={'start': 'Value to start from ',
              'limit': 'Total limit of the query',
              'count': 'Number results per page',
@@ -218,6 +250,38 @@ class participantc(Resource):
             else:
                 return{
                     "res":"participant service down"
+                }, 400
+
+@participant.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@participant.route('/single/client/')
+class clients(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/participant/Client/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
                 }, 400
 
 @participant.doc(
