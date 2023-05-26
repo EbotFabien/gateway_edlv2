@@ -297,7 +297,7 @@ class commentairespec(Resource):
             # Still to fix the next and previous WRT Sqlalchemy
             
             if type != None  and nature != None:
-                URL="http://195.15.218.172/biblio/commentaire/search/"+type+'/'+nature+'/'
+                URL="http://195.15.218.172/biblio/commentaire/search/"+type+'/'+nature
                 r = requests.get(url=URL)
                 if r.status_code == 200:
                     return {
