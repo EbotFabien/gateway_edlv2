@@ -123,7 +123,7 @@ class usera(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @users.route('/users/search')
-class usera(Resource):
+class usersea(Resource):
     def get(self):
         if request.args:
             type = request.args.get('type', None)
