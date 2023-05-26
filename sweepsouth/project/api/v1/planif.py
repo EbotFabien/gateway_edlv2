@@ -51,102 +51,6 @@ parti= planif.model('participant', {
 })
 
 
-@planif.doc(
-    security='KEY',
-    params={'start': 'Value to start from ',
-             'limit': 'Total limit of the query',
-             'count': 'Number results per page',
-            'category': 'category'
-            },
-    responses={
-        200: 'ok',
-        201: 'created',
-        204: 'No Content',
-        301: 'Resource was moved',
-        304: 'Resource was not Modified',
-        400: 'Bad Request to server',
-        401: 'Unauthorized request from client to server',
-        403: 'Forbidden request from client to server',
-        404: 'Resource Not found',
-        500: 'internal server error, please contact admin and report issue'
-    })
-@planif.route('planif/participant/all')
-class planifparticipant(Resource):
-    def get(self):
-        if request.args:
-            start = request.args.get('start', None)
-            limit = request.args.get('limit', None)
-            count = request.args.get('count', None)
-            # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
-                str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
-                str(int(start)-1)+"&limit="+limit+"&count="+count
-            
-            URL="http://195.15.218.172/edluser/Admin/tous"
-            r = requests.get(url=URL)
-            if r.status_code == 200:
-                return {
-                    "start": start,
-                    "limit": limit,
-                    "count": count,
-                    "next": next,
-                    "previous": previous,
-                    "results": r.json()
-                }, 200
-            else:
-                return{
-                    "res":"planif participant service down"
-                }, 400
-
-
-@planif.doc(
-    security='KEY',
-    params={'start': 'Value to start from ',
-             'limit': 'Total limit of the query',
-             'count': 'Number results per page',
-            'category': 'category'
-            },
-    responses={
-        200: 'ok',
-        201: 'created',
-        204: 'No Content',
-        301: 'Resource was moved',
-        304: 'Resource was not Modified',
-        400: 'Bad Request to server',
-        401: 'Unauthorized request from client to server',
-        403: 'Forbidden request from client to server',
-        404: 'Resource Not found',
-        500: 'internal server error, please contact admin and report issue'
-    })
-@planif.route('planif/users/all')
-class usera(Resource):
-    def get(self):
-        if request.args:
-            start = request.args.get('start', None)
-            limit = request.args.get('limit', None)
-            count = request.args.get('count', None)
-            # Still to fix the next and previous WRT Sqlalchemy
-            next = "/api/v1/post/tags?start=" + \
-                str(int(start)+1)+"&limit="+limit+"&count="+count
-            previous = "/api/v1/post/tags?start=" + \
-                str(int(start)-1)+"&limit="+limit+"&count="+count
-            
-            URL="http://195.15.218.172/edluser/Admin/tous"
-            r = requests.get(url=URL)
-            if r.status_code == 200:
-                return {
-                    "start": start,
-                    "limit": limit,
-                    "count": count,
-                    "next": next,
-                    "previous": previous,
-                    "results":r.json()
-                }, 200
-            else:
-                return{
-                    "res":"User service down"
-                }, 400
 
 #edl routes
 @planif.doc(
@@ -181,7 +85,7 @@ class edlall(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/edl/tous"
+            URL="http://195.15.228.250/edlplanning/edl/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -221,7 +125,7 @@ class edl_add(Resource):
         req_data = request.get_json()
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/edl/ajouter"
+            URL="http://195.15.228.250/edlplanning/edl/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -264,7 +168,7 @@ class edl_update(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/edl/modifier/"+req_data['id']
+            URL="http://195.15.228.250/edlplanning/edl/modifier/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
@@ -288,7 +192,7 @@ class edl_update(Resource):
     params={'start': 'Value to start from ',
              'limit': 'Total limit of the query',
              'count': 'Number results per page',
-            'id': 'id'
+            'ID': 'Identity of User'
             },
     responses={
         200: 'ok',
@@ -309,14 +213,14 @@ class edlsing(Resource):
             start = request.args.get('start', None)
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
-            ID = request.args.get('id', None)
+            ID = request.args.get('ID', None)
             # Still to fix the next and previous WRT Sqlalchemy
             next = "/api/v1/post/tags?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/edl/"+ID
+            URL="http://195.15.228.250/edlplanning/edl/"+ID
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -366,7 +270,7 @@ class usera(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/user/tous"
+            URL="http://195.15.228.250/edlplanning/user/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -381,6 +285,48 @@ class usera(Resource):
                 return{
                     "res":"User service down"
                 }, 400
+
+@planif.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@planif.route('/planif/users/add')
+class users_add(Resource):
+    @token_required
+    @planif.expect(parti)
+    def post(self):
+        req_data = request.get_json()
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.228.250/edlplanning/user/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
 
 @planif.doc(
     security='KEY',
@@ -405,7 +351,7 @@ class user_Update(Resource):
         token = request.headers['Authorization']
         if token:
             
-            URL="http://195.15.218.172/agent_app/user/update/"+str(user_data['id'])
+            URL="http://195.15.228.250/edlplanning/user/update/"+str(user_data['id'])
             headers ={"Authorization":token}
             #for key,value in user_data.iteritems():
             #    if value == None:
@@ -423,6 +369,54 @@ class user_Update(Resource):
                         'res': 'no data',
                     }, 401
 
+@planif.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@planif.route('/planif/users/indivi')
+class usersing(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            ID = request.args.get('ID', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.228.250/edlplanning/user/"+ID
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"Planif edl service down"
+                }, 400
 
 #participant route
 
@@ -459,7 +453,7 @@ class planifparticipanta(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/participant/participant/tous"
+            URL="http://195.15.228.250/edlplanning/participant/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -475,6 +469,46 @@ class planifparticipanta(Resource):
                     "res":"planif service down"
                 }, 400
 
+@planif.doc(
+    security='KEY',
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@planif.route('/planif/update/participant')
+class participant_Update(Resource):
+    @token_required
+    @planif.expect(parti)
+    def put(self):
+        user_data = request.get_json()
+        token = request.headers['Authorization']
+        if token:
+            
+            URL="http://195.15.228.250/edlplanning/participant/update/"+str(user_data['id'])
+            headers ={"Authorization":token}
+            #for key,value in user_data.iteritems():
+            #    if value == None:
+            #        del user_data[key]
+
+            del user_data['id']
+            print(user_data)
+            r = requests.post(url=URL,headers=headers,json=user_data)
+            print(r.headers)
+               
+                
+        else:
+                return {
+                        'status':0,
+                        'res': 'no data',
+                    }, 401
 
 
 @planif.doc(
@@ -501,7 +535,7 @@ class planif_Parti_add(Resource):
         req_data = request.get_json()
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/participant/ajouter"
+            URL="http://195.15.228.250/edlplanning/participant/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -518,6 +552,55 @@ class planif_Parti_add(Resource):
                         'status':0,
                         'res': 'input token',
                     }, 403
+
+@planif.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@planif.route('/planif/participant/indivi')
+class participanting(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            ID = request.args.get('ID', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.228.250/edlplanning/participant/"+ID
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"Planif edl service down"
+                }, 400
 
 
 #rdv route
@@ -553,7 +636,7 @@ class rdvall(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/rdv/tous"
+            URL="http://195.15.228.250/edlplanning/rdv/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -593,7 +676,7 @@ class rdv_add(Resource):
         req_data = request.get_json()
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/rdv/ajouter"
+            URL="http://195.15.228.250/edlplanning/rdv/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -636,7 +719,7 @@ class rdv_update(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/participant/rdv/update/"+req_data['id']
+            URL="http://195.15.228.250/edlplanning/rdv/update/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
@@ -660,7 +743,7 @@ class rdv_update(Resource):
     params={'start': 'Value to start from ',
              'limit': 'Total limit of the query',
              'count': 'Number results per page',
-            'id': 'id'
+            'ID': 'Identity of User'
             },
     responses={
         200: 'ok',
@@ -681,14 +764,14 @@ class rdvsing(Resource):
             start = request.args.get('start', None)
             limit = request.args.get('limit', None)
             count = request.args.get('count', None)
-            ID = request.args.get('id', None)
+            ID = request.args.get('ID', None)
             # Still to fix the next and previous WRT Sqlalchemy
             next = "/api/v1/post/tags?start=" + \
                 str(int(start)+1)+"&limit="+limit+"&count="+count
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/edluser/rdv/"+ID
+            URL="http://195.15.228.250/edlplanning/rdv/"+ID
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {

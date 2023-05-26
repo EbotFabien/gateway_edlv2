@@ -104,6 +104,38 @@ class clefa(Resource):
 
 @logement.doc(
     security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/single/clefs/')
+class clefsin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/logement/cles/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+@logement.doc(
+    security='KEY',
     params={},
 
     responses={
@@ -188,6 +220,38 @@ class clefsmod(Resource):
                         'res': 'input token',
                     }, 403
 
+@logement.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/single/compteurs/')
+class compteursin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/logement/compteurs/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
 
 #compteurs route
 @logement.doc(
@@ -215,7 +279,7 @@ class compteuradd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/logement/compteur/ajouter"
+            URL="http://195.15.218.172/logement/compteur/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -266,7 +330,7 @@ class compteursa(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/logement/logement/compteur/tous"
+            URL="http://195.15.218.172/logement/compteur/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -327,3 +391,1371 @@ class compteursmod(Resource):
                     }, 403
 
 
+
+#client route
+@logement.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/single/client/')
+class clientin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/logement/client/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/client/add')
+class clientadd(Resource):
+    @token_required
+    @logement.expect(parti)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/client/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                            'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@logement.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            'category': 'category'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/client/all')
+class clienta(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.218.172/logement/client/tous"
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results": r.json()
+                }, 200
+            else:
+                return{
+                    "res":"compteurs logement service down"
+                }, 400
+
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/client/modify')
+class clientmod(Resource):
+    @token_required
+    @logement.expect(parti)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/client/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+
+#extension
+
+@logement.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/single/extension/')
+class extensionin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/logement/extenssion/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/extension/add')
+class extensionadd(Resource):
+    @token_required
+    @logement.expect(parti)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/extension/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                            'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@logement.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            'category': 'category'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/extension/all')
+class extensiona(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.218.172/logement/extenssion/tous"
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results": r.json()
+                }, 200
+            else:
+                return{
+                    "res":"compteurs logement service down"
+                }, 400
+
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/extension/modify')
+class extensionmod(Resource):
+    @token_required
+    @logement.expect(parti)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/extenssion/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+#piece
+
+@logement.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/single/piece/')
+class piecein(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/logement/piece/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/piece/add')
+class pieceadd(Resource):
+    @token_required
+    @logement.expect(parti)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/piece/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                            'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@logement.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            'category': 'category'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/piece/all')
+class piecea(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.218.172/logement/piece/tous"
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results": r.json()
+                }, 200
+            else:
+                return{
+                    "res":"compteurs logement service down"
+                }, 400
+
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/piece/modify')
+class piecemod(Resource):
+    @token_required
+    @logement.expect(parti)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/piece/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+#rubrique
+
+@logement.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/single/rubriq/')
+class rubriqin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/logement/rubriq/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/rubriq/add')
+class rubriqadd(Resource):
+    @token_required
+    @logement.expect(parti)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/rubriq/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                            'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@logement.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            'category': 'category'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/rubriq/all')
+class rubriqa(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.218.172/logement/rubriq/tous"
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results": r.json()
+                }, 200
+            else:
+                return{
+                    "res":"compteurs logement service down"
+                }, 400
+
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/rubriq/modify')
+class rubriqmod(Resource):
+    @token_required
+    @logement.expect(parti)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/rubriq/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+#type logement
+@logement.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/single/type_log/')
+class type_login(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/logement/type_log/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/type_log/add')
+class type_logadd(Resource):
+    @token_required
+    @logement.expect(parti)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/type_log/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                            'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@logement.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            'category': 'category'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/type_log/all')
+class type_loga(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.218.172/logement/type_log/tous"
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results": r.json()
+                }, 200
+            else:
+                return{
+                    "res":"compteurs logement service down"
+                }, 400
+
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/type_log/modify')
+class type_logmod(Resource):
+    @token_required
+    @logement.expect(parti)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/type_log/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+
+#voie
+
+@logement.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/single/voie/')
+class voiein(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/logement/voie/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/voie/add')
+class voieadd(Resource):
+    @token_required
+    @logement.expect(parti)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/voie/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                            'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@logement.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            'category': 'category'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/voie/all')
+class voiea(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.218.172/logement/voie/tous"
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results": r.json()
+                }, 200
+            else:
+                return{
+                    "res":"compteurs logement service down"
+                }, 400
+
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/voie/modify')
+class voiemod(Resource):
+    @token_required
+    @logement.expect(parti)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/voie/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+
+#user
+@logement.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/single/user/')
+class userin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/logement/user/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/user/add')
+class useradd(Resource):
+    @token_required
+    @logement.expect(parti)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/user/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                            'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@logement.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            'category': 'category'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/user/all')
+class usera(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.218.172/logement/user/tous"
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results": r.json()
+                }, 200
+            else:
+                return{
+                    "res":"compteurs logement service down"
+                }, 400
+
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/user/modify')
+class usermod(Resource):
+    @token_required
+    @logement.expect(parti)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/user/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+#logement
+
+@logement.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/single/logement/')
+class logementin(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.218.172/logement/logement/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/logement/add')
+class logementadd(Resource):
+    @token_required
+    @logement.expect(parti)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/logement/ajouter"
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                            'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
+
+
+@logement.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            'category': 'category'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/logement/all')
+class logementa(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.218.172/logement/logement/tous"
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results": r.json()
+                }, 200
+            else:
+                return{
+                    "res":"compteurs logement service down"
+                }, 400
+
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/logement/modify')
+class logementmod(Resource):
+    @token_required
+    @logement.expect(parti)
+    def put(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/logement/logement/update/"+req_data['id']
+            r = requests.post(url=URL,json=req_data)
+            if r.status_code == 200 :
+                return {
+                        'status': 1,
+                        'res': r.json(),
+                    }, 200
+            else:
+                return {
+                        'status':0,
+                        'res': 'failed',
+                    }, 400
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
