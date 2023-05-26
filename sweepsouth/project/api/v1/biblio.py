@@ -287,8 +287,8 @@ class commentairea(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@biblio.route('/commentaire/all')
-class commentairea(Resource):
+@biblio.route('/commentaire/spec')
+class commentairespec(Resource):
     def get(self):
         if request.args:
             type = request.args.get('type', None)
