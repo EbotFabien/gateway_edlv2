@@ -320,7 +320,7 @@ class commentairespec(Resource):
                         "res":"Commentaire biblio service down"
                     }, 400
             if type == None  and nature != None:
-                URL="http://195.15.218.172/biblio/commentaire/search/?category="+nature
+                URL="http://195.15.218.172/biblio/commentaire/search/None/"+nature
                 r = requests.get(url=URL)
                 if r.status_code == 200:
                     return {
