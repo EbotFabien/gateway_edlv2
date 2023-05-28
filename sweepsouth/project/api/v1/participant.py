@@ -109,7 +109,7 @@ class participanta(Resource):
             previous = "/api/v1/participant/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/participant/participant/tous"+start+'/'+limit+'/'
+            URL="http://195.15.218.172/participant/participant/tous"#+start+'/'+limit+'/'
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
