@@ -43,7 +43,7 @@ description='', authorizations=authorizations)
 CORS(api, resources={r"/api/*": {"origins": "*"}})
 
 users  = users1.namespace('/api/utilisateurs', \
-    description= "All routes under this section of the documentation are the open routes bots can perform CRUD action \
+    description= "All routes damn under this section of the documentation are the open routes bots can perform CRUD action \
     on the application.", \
     path = '/v1/')
 
@@ -184,20 +184,23 @@ class usersea(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@users.route('/single/user/')
-class userp(Resource):
+@users.route('/single/usera/')
+class usersingle(Resource):
     def get(self):
+        
         if request.args:
             start = request.args.get('ID', None)
             URL="http://195.15.218.172/edluser/Agentsec/"+start
+            
             r = requests.get(url=URL)
+            
             if r.status_code == 200:
                 return {
                     "results":r.json()
                 }, 200
             else:
                 return{
-                    "res":"User service down"
+                    "res":"User service vvv down"
                 }, 400
 
 
