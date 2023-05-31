@@ -24,7 +24,7 @@ def token_required(f):
         token = None
         if 'Authorization' in request.headers:
             token = request.headers['Authorization']
-            '''URL="http://195.15.218.172/security/manager_app/viewset/role/"
+            '''URL="http://195.15.228.250/security/manager_app/viewset/role/"
             params ={"token":token}
             r = requests.post(url=URL,params=params)
             print(r)'''
@@ -86,7 +86,7 @@ class clefa(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/logement/cles/tous"
+            URL="http://195.15.228.250/logement/cles/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -123,7 +123,7 @@ class clefsin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/logement/cles/"+start
+            URL="http://195.15.228.250/logement/cles/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -159,7 +159,7 @@ class clefsadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/cles/ajouter"
+            URL="http://195.15.228.250/logement/cles/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -202,7 +202,7 @@ class clefsmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/logement/cles/update/"+req_data['id']
+            URL="http://195.15.228.250/logement/cles/update/"+req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -241,7 +241,7 @@ class compteursin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/logement/compteurs/"+start
+            URL="http://195.15.228.250/logement/compteurs/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -279,7 +279,7 @@ class compteuradd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/compteur/ajouter"
+            URL="http://195.15.228.250/logement/compteur/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -330,7 +330,7 @@ class compteursa(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/logement/compteur/tous"
+            URL="http://195.15.228.250/logement/compteur/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -372,7 +372,7 @@ class compteursmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/compteur/update/"+req_data['id']
+            URL="http://195.15.228.250/logement/compteur/update/"+req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -414,7 +414,7 @@ class clientin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/logement/client/"+start
+            URL="http://195.15.228.250/logement/client/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -451,7 +451,7 @@ class clientadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/client/ajouter"
+            URL="http://195.15.228.250/logement/client/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -502,7 +502,7 @@ class clienta(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/logement/client/tous"
+            URL="http://195.15.228.250/logement/client/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -544,7 +544,7 @@ class clientmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/client/update/"+req_data['id']
+            URL="http://195.15.228.250/logement/client/update/"+req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -587,7 +587,7 @@ class extensionin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/logement/extenssion/"+start
+            URL="http://195.15.228.250/logement/extenssion/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -623,7 +623,7 @@ class extensionadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/extension/ajouter"
+            URL="http://195.15.228.250/logement/extension/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -674,7 +674,7 @@ class extensiona(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/logement/extenssion/tous"
+            URL="http://195.15.228.250/logement/extenssion/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -716,7 +716,7 @@ class extensionmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/extenssion/update/"+req_data['id']
+            URL="http://195.15.228.250/logement/extenssion/update/"+req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -758,7 +758,7 @@ class piecein(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/logement/piece/"+start
+            URL="http://195.15.228.250/logement/piece/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -794,7 +794,7 @@ class pieceadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/piece/ajouter"
+            URL="http://195.15.228.250/logement/piece/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -845,7 +845,7 @@ class piecea(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/logement/piece/tous"
+            URL="http://195.15.228.250/logement/piece/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -887,7 +887,7 @@ class piecemod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/piece/update/"+req_data['id']
+            URL="http://195.15.228.250/logement/piece/update/"+req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -928,7 +928,7 @@ class rubriqin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/logement/rubriq/"+start
+            URL="http://195.15.228.250/logement/rubriq/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -965,7 +965,7 @@ class rubriqadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/rubriq/ajouter"
+            URL="http://195.15.228.250/logement/rubriq/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1016,7 +1016,7 @@ class rubriqa(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/logement/rubriq/tous"
+            URL="http://195.15.228.250/logement/rubriq/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1058,7 +1058,7 @@ class rubriqmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/rubriq/update/"+req_data['id']
+            URL="http://195.15.228.250/logement/rubriq/update/"+req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1099,7 +1099,7 @@ class type_login(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/logement/type_log/"+start
+            URL="http://195.15.228.250/logement/type_log/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1135,7 +1135,7 @@ class type_logadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/type_log/ajouter"
+            URL="http://195.15.228.250/logement/type_log/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1186,7 +1186,7 @@ class type_loga(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/logement/type_log/tous"
+            URL="http://195.15.228.250/logement/type_log/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1228,7 +1228,7 @@ class type_logmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/type_log/update/"+req_data['id']
+            URL="http://195.15.228.250/logement/type_log/update/"+req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1271,7 +1271,7 @@ class voiein(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/logement/voie/"+start
+            URL="http://195.15.228.250/logement/voie/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1307,7 +1307,7 @@ class voieadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/voie/ajouter"
+            URL="http://195.15.228.250/logement/voie/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1358,7 +1358,7 @@ class voiea(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/logement/voie/tous"
+            URL="http://195.15.228.250/logement/voie/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1400,7 +1400,7 @@ class voiemod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/voie/update/"+req_data['id']
+            URL="http://195.15.228.250/logement/voie/update/"+req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1442,7 +1442,7 @@ class userin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/logement/user/"+start
+            URL="http://195.15.228.250/logement/user/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1478,7 +1478,7 @@ class useradd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/user/ajouter"
+            URL="http://195.15.228.250/logement/user/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1529,7 +1529,7 @@ class usera(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/logement/user/tous"
+            URL="http://195.15.228.250/logement/user/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1571,7 +1571,7 @@ class usermod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/user/update/"+req_data['id']
+            URL="http://195.15.228.250/logement/user/update/"+req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1613,7 +1613,7 @@ class logementin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/logement/logement/"+start
+            URL="http://195.15.228.250/logement/logement/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1649,7 +1649,7 @@ class logementadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/logement/ajouter"
+            URL="http://195.15.228.250/logement/logement/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1700,7 +1700,7 @@ class logementa(Resource):
             previous = "/api/v1/post/tags?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/logement/logement/tous"
+            URL="http://195.15.228.250/logement/logement/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1742,7 +1742,7 @@ class logementmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/logement/logement/update/"+req_data['id']
+            URL="http://195.15.228.250/logement/logement/update/"+req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
