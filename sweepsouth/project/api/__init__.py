@@ -187,8 +187,9 @@ class Signup(Resource):
                 compte=signup_data["compte_client"]
                 del signup_data["compte_client"]
                 r = requests.post(url=URL,headers=headers,json=signup_data)
+                print (r.status_code)
                 v=r.json()
-                print (v)
+                
                 v[0]['mdp']=signup_data["mdp"]
                 v[0]['compte_client']=compte
 
