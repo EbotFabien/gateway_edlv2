@@ -1759,3 +1759,39 @@ class logementmod(Resource):
                         'status':0,
                         'res': 'input token',
                     }, 403
+
+@logement.doc(
+    security='KEY',
+    params={},
+
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/print/pdf')
+class logementprint(Resource):
+    @token_required
+    @logement.expect(parti)
+    def post(self):
+        req_data = request.json
+        
+        token=request.headers['Authorization']
+        if token:
+            URL="http://195.15.218.172/edluser/print/file"
+            r = requests.post(url=URL,json=req_data)
+            
+            return r
+            
+        else:
+                return {
+                        'status':0,
+                        'res': 'input token',
+                    }, 403
