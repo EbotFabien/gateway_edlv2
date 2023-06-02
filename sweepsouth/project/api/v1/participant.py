@@ -268,11 +268,12 @@ class participantc(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@participant.route('/single/client/')
+@participant.route('/participant/single/client/')
 class clients(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
+            
             URL="http://195.15.218.172/participant/Client/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
@@ -281,7 +282,7 @@ class clients(Resource):
                 }, 200
             else:
                 return{
-                    "res":"User service down"
+                    "res":"User service not down"
                 }, 400
 
 @participant.doc(
