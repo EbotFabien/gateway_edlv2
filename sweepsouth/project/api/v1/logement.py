@@ -1787,7 +1787,7 @@ class logementprint(Resource):
         if token:
             URL="http://195.15.218.172/edluser/print/file"
             r = requests.post(url=URL,json=req_data)
-            
+            print(r)
             return r
             
         else:
