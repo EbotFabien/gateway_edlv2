@@ -144,7 +144,7 @@ class Login(Resource):
             
             if r.status_code == 200 :
                 
-                URL="http://195.15.218.172/edluser/Agentsec/"+r.json()["id"]
+                URL="http://195.15.218.172/edluser/Agentsec/"+str(r.json()["id"])
             
                 v = requests.get(url=URL)
                 
