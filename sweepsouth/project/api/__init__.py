@@ -144,17 +144,25 @@ class Login(Resource):
             
             if r.status_code == 200 :
                 data=r.json()
-                #hfjfjfjfj
+                
                 URL="http://195.15.218.172/edluser/Agentsec/"+str(data["id"])
             
                 v = requests.get(url=URL)
                 
                 if v.status_code == 200:
-                    data["client_data"]=v.json()["compte_client"]
-                    return {
-                            'status': 1,
-                            'res': data,
-                        }, 200
+                    try:
+                        data["client_data"]=v.json()["compte_client"]
+                        return {
+                                'status':"client present",
+                                'res': data,
+                            }, 200
+                    except:
+                        data["client_data"]=" "
+                        return {
+                                'status': "No client,it is an admin or its not assigned",
+                                'res': data,
+                            }, 200
+
             else:
                 return {
                         'status':0,
