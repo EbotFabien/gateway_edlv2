@@ -141,11 +141,19 @@ class Login(Resource):
         if username and password:
             URL="http://195.15.228.250/manager_app/login/"
             r = requests.post(url=URL,json=req_data)
+            
             if r.status_code == 200 :
-                return {
-                        'status': 1,
-                        'res': r.json(),
-                    }, 200
+                
+                URL="http://195.15.218.172/edluser/Agentsec/"+r.json()["id"]
+            
+                v = requests.get(url=URL)
+                
+                if v.status_code == 200:
+                    r.json()["client_data"]=v.json()["compte_client"]
+                    return {
+                            'status': 1,
+                            'res': r.json(),
+                        }, 200
             else:
                 return {
                         'status':0,
@@ -187,11 +195,20 @@ class Signup(Resource):
                 compte=signup_data["compte_client"]
                 del signup_data["compte_client"]
                 r = requests.post(url=URL,headers=headers,json=signup_data)
-                print (r.status_code)
+                
                 v=r.json()
                 
                 v[0]['mdp']=signup_data["mdp"]
-                v[0]['compte_client']=compte
+                
+                URL="http://195.15.218.172/participant/Client/"+compte
+                q = requests.get(url=URL)
+                if q.status_code == 200:
+                    v[0]['compte_client']=q.json()
+                else:
+                    return {
+                            'status':q.status_code,
+                            'res': 'No account',
+                        }, 200       
 
                 if r.status_code == 200 :
                     url1="http://195.15.218.172/synchro/util/ajouter/all"
