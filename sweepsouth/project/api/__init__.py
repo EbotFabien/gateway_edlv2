@@ -153,7 +153,7 @@ class Login(Resource):
                     data[0]["client_data"]=v.json()["compte_client"]
                     return {
                             'status': 1,
-                            'res': r.json(),
+                            'res': data,
                         }, 200
             else:
                 return {
