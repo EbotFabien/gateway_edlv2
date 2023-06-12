@@ -647,9 +647,12 @@ class extensionadd(Resource):
             URL="http://195.15.218.172/biblio/extension/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                url1="http://195.15.218.172/synchro/extension/ajouter/"
+                r2 = requests.post(url=url1,json=r.json())
                 return {
                         'status': 1,
-                            'res': r.json(),
+                        'synchro_status':r2.status_code,
+                        'res': r.json(),
                     }, 200
             else:
                 return {
@@ -1658,10 +1661,14 @@ class voieadd(Resource):
             URL="http://195.15.218.172/biblio/voie/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                url1="http://195.15.218.172/synchro/voie/ajouter/"
+                r2 = requests.post(url=url1,json=r.json())
                 return {
                         'status': 1,
-                            'res': r.json(),
+                        'synchro_status':r2.status_code,
+                        'res': r.json(),
                     }, 200
+                
             else:
                 return {
                         'status':0,
