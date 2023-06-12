@@ -157,7 +157,7 @@ class Login(Resource):
                                 'res': data,
                             }, 200
                     except:
-                        data["client_data"]=" "
+                        data["client_data"]=""
                         return {
                                 'status': "No client,it is an admin or its not assigned",
                                 'res': data,
