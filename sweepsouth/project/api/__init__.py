@@ -145,12 +145,12 @@ class Login(Resource):
             if r.status_code == 200 :
                 data=r.json()
                 
-                URL="http://195.15.218.172/edluser/Agentsec/"+str(data[0]["id"])
+                URL="http://195.15.218.172/edluser/Agentsec/"+str(data["id"])
             
                 v = requests.get(url=URL)
                 
                 if v.status_code == 200:
-                    data[0]["client_data"]=v.json()["compte_client"]
+                    data["client_data"]=v.json()["compte_client"]
                     return {
                             'status': 1,
                             'res': data,
