@@ -691,6 +691,8 @@ class extensiona(Resource):
                 }, 400
 
 
+
+
 @logement.doc(
     security='KEY',
     params={},
