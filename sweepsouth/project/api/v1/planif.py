@@ -51,6 +51,78 @@ parti= planif.model('participant', {
 })
 
 
+@planif.doc(
+    security='KEY',
+    params={'ID': 'User id'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@planif.route('/planif/edl/user/')
+class edluser(Resource):
+    def get(self):
+        if request.args:
+            ID = request.args.get('ID', None)
+            
+            
+            URL="http://195.15.228.250/edlplanning/edl/user_compte_client/"+ID
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"Planif edl service down"
+                }, 400
+
+
+@planif.doc(
+    security='KEY',
+    params={'ID': 'Participant id'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@planif.route('/planif/edl/part/')
+class edluser(Resource):
+    def get(self):
+        if request.args:
+            ID = request.args.get('ID', None)
+            
+            
+            URL="http://195.15.228.250/edlplanning/edl/part_compte_client/"+ID
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"Planif edl service down"
+                }, 400
+
+
 
 #edl routes
 @planif.doc(
