@@ -89,7 +89,7 @@ class edluser(Resource):
 
 @planif.doc(
     security='KEY',
-    params={'ID': 'Participant id'
+    params={'ID': 'client id'
             },
     responses={
         200: 'ok',
