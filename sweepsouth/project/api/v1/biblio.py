@@ -989,10 +989,17 @@ class pieceadd(Resource):
             URL="http://195.15.218.172/biblio/piece/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+
+                v=r.json()
+                
+                url1="http://195.15.218.172/synchro/piece/ajouter/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
-                            'res': r.json(),
+                        'synchro_status':r2.json(),
+                        'res': r.json(),
                     }, 200
+                
             else:
                 return {
                         'status':0,
