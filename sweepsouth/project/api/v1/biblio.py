@@ -1626,7 +1626,7 @@ class typelogemod(Resource):
             if r.status_code == 200 :
                 v=r.json()
                 v['id']=loge_id
-
+                #ok
                 
                 url1="http://195.15.218.172/synchro/type_log/modify/"
                 r2 = requests.post(url=url1,json=v)
