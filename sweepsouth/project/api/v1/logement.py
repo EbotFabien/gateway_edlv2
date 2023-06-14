@@ -118,7 +118,7 @@ class clefa(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@logement.route('/single/clefs/')
+@logement.route('/logement/single/clefs/')
 class clefsin(Resource):
     def get(self):
         if request.args:
@@ -236,7 +236,7 @@ class clefsmod(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@logement.route('/single/compteurs/')
+@logement.route('/logement/single/compteurs/')
 class compteursin(Resource):
     def get(self):
         if request.args:
@@ -409,7 +409,7 @@ class compteursmod(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@logement.route('/single/client/')
+@logement.route('/logement/single/client/')
 class clientin(Resource):
     def get(self):
         if request.args:
@@ -582,7 +582,7 @@ class clientmod(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@logement.route('/single/extension/')
+@logement.route('/logement/single/extension/')
 class extensionin(Resource):
     def get(self):
         if request.args:
@@ -755,7 +755,7 @@ class extensionmod(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@logement.route('/single/piece/')
+@logement.route('/logement/single/piece/')
 class piecein(Resource):
     def get(self):
         if request.args:
@@ -925,7 +925,7 @@ class piecemod(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@logement.route('/single/rubriq/')
+@logement.route('/logement/single/rubriq/')
 class rubriqin(Resource):
     def get(self):
         if request.args:
@@ -1096,7 +1096,7 @@ class rubriqmod(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@logement.route('/single/type_log/')
+@logement.route('/logement/single/type_log/')
 class type_login(Resource):
     def get(self):
         if request.args:
@@ -1268,7 +1268,7 @@ class type_logmod(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@logement.route('/single/voie/')
+@logement.route('/logement/single/voie/')
 class voiein(Resource):
     def get(self):
         if request.args:
@@ -1439,7 +1439,7 @@ class voiemod(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@logement.route('/single/user/')
+@logement.route('/logement/single/user/')
 class userin(Resource):
     def get(self):
         if request.args:
@@ -1610,13 +1610,14 @@ class usermod(Resource):
         404: 'Resource Not found',
         500: 'internal server error, please contact admin and report issue'
     })
-@logement.route('/single/logement/')
+@logement.route('/logement/single/logement/')
 class logementin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
             URL="http://195.15.228.250/logement/logement/"+start
             r = requests.get(url=URL)
+            print(r.status_code)
             if r.status_code == 200:
                 return {
                     "results":r.json()
