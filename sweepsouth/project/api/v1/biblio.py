@@ -1617,7 +1617,7 @@ class typelogemod(Resource):
     @biblio.expect(client)
     def put(self):
         req_data = request.json
-        
+        loge_id=req_data['id']
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/typeloge/update/"+req_data['id']
@@ -1625,6 +1625,8 @@ class typelogemod(Resource):
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 v=r.json()
+                v['id']=loge_id
+
                 
                 url1="http://195.15.218.172/synchro/type_log/modify/"
                 r2 = requests.post(url=url1,json=v)
