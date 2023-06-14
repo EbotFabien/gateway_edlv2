@@ -439,7 +439,7 @@ class logementcompte_client(Resource):
         if request.args:
             ID = request.args.get('ID', None)
             
-            URL="http://195.15.228.250/edlplanning/logement/cc/id_client"+str(ID)
+            URL="http://195.15.228.250/edlplanning/logement/cc/"+str(ID)
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
