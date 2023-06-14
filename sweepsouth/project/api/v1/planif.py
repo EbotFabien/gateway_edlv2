@@ -286,6 +286,8 @@ class edl_add(Resource):
                         'res': 'input token',
                     }, 403
 
+
+
 @planif.doc(
     security='KEY',
     params={},
@@ -377,6 +379,75 @@ class edlsing(Resource):
             else:
                 return{
                     "res":"Planif edl service down"
+                }, 400
+
+#users data
+@planif.doc(
+    security='KEY',
+    params={'ID': 'ID data',
+            
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@planif.route('/planif/edl/edl/compte_client')
+class edlcompte_client(Resource):
+    def get(self):
+        if request.args:
+            ID = request.args.get('ID', None)
+            
+            URL="http://195.15.228.250/edlplanning/edl/compte_client/"+str(ID)
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
+@planif.doc(
+    security='KEY',
+    params={'ID': 'ID data',
+            
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@planif.route('/planif/edl/logement/compte_client')
+class logementcompte_client(Resource):
+    def get(self):
+        if request.args:
+            ID = request.args.get('ID', None)
+            
+            URL="http://195.15.228.250/edlplanning/logement/cc/id_client"+str(ID)
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
                 }, 400
 
 
