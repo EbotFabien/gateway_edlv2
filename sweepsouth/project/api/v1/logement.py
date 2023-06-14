@@ -1617,6 +1617,8 @@ class logementin(Resource):
             start = request.args.get('ID', None)
             URL="http://195.15.228.250/logement/logement/"+start
             r = requests.get(url=URL)
+            print(r)
+            print(start)
             print(r.status_code)
             if r.status_code == 200:
                 return {
@@ -1755,8 +1757,14 @@ class logementmod(Resource):
             URL="http://195.15.228.250/logement/logement/update/"+req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                v=r.json()
+                
+                
+                url1="http://195.15.218.172/synchro/edl/logement/edit/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
+                        'synchro_status':r2.json(),
                         'res': r.json(),
                     }, 200
             else:
