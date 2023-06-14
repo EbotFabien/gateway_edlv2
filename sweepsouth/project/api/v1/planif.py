@@ -413,7 +413,7 @@ class edlcompte_client(Resource):
                 }, 200
             else:
                 return{
-                    "res":"User service down"
+                    "res":"edl service down"
                 }, 400
 
 @planif.doc(
@@ -447,7 +447,7 @@ class logementcompte_client(Resource):
                 }, 200
             else:
                 return{
-                    "res":"User service down"
+                    "res":"edl service down"
                 }, 400
 
 
