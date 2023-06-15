@@ -461,8 +461,14 @@ class Parti_client_add(Resource):
             URL="http://195.15.218.172/participant/Client/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                v=r.json()
+                
+                
+                url1="http://195.15.218.172/synchro/client/ajouter/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
+                        'synchro_status':r2.json(),
                         'res': r.json(),
                     }, 200
             else:
@@ -505,8 +511,14 @@ class Parti_client_update(Resource):
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                v=r.json()
+                
+                
+                url1="http://195.15.218.172/synchro/client/edit/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
+                        'synchro_status':r2.json(),
                         'res': r.json(),
                     }, 200
             else:
