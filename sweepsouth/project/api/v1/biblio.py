@@ -162,8 +162,13 @@ class clefsadd(Resource):
             URL="http://195.15.218.172/biblio/Clefs/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                v=r.json()
+                
+                url1="http://195.15.218.172/synchro/clef/ajouter/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
+                        'synchro_status':r2.json(),
                         'res': r.json(),
                     }, 200
             else:
@@ -206,8 +211,13 @@ class clefsmod(Resource):
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                v=r.json()
+                
+                url1="http://195.15.218.172/synchro/clef/modify/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
+                        'synchro_status':r2.json(),
                         'res': r.json(),
                     }, 200
             else:
@@ -478,9 +488,14 @@ class compteuradd(Resource):
             URL="http://195.15.218.172/biblio/compteurs/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                v=r.json()
+                
+                url1="http://195.15.218.172/synchro/compteur/ajouter/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
-                            'res': r.json(),
+                        'synchro_status':r2.json(),
+                        'res': r.json(),
                     }, 200
             else:
                 return {
@@ -604,8 +619,13 @@ class compteursmod(Resource):
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                v=r.json()
+                
+                url1="http://195.15.218.172/synchro/compteur/modify/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
+                        'synchro_status':r2.json(),
                         'res': r.json(),
                     }, 200
             else:
@@ -1124,8 +1144,13 @@ class piecemod(Resource):
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                v=r.json()
+                
+                url1="http://195.15.218.172/synchro/piece/modify/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
+                        'synchro_status':r2.json(),
                         'res': r.json(),
                     }, 200
             else:
@@ -1167,9 +1192,14 @@ class rubricadd(Resource):
             URL="http://195.15.218.172/biblio/Rubric/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                v=r.json()
+                
+                url1="http://195.15.218.172/synchro/rubric/ajouter/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
-                            'res': r.json(),
+                        'synchro_status':r2.json(),
+                        'res': r.json(),
                     }, 200
             else:
                 return {
@@ -1292,8 +1322,13 @@ class Rubricmod(Resource):
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
+                v=r.json()
+                
+                url1="http://195.15.218.172/synchro/rubric/modify/"
+                r2 = requests.post(url=url1,json=v)
                 return {
                         'status': 1,
+                        'synchro_status':r2.json(),
                         'res': r.json(),
                     }, 200
             else:
