@@ -193,6 +193,53 @@ class edluser(Resource):
                     "res":"Planif edl service down"
                 }, 400
 
+@planif.doc(
+    security='KEY',
+    params={'start': 'Value to start from ',
+             'limit': 'Total limit of the query',
+             'count': 'Number results per page',
+            'category': 'category'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@planif.route('/planif/edl/typeloge/data/all')
+class edlall(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('start', None)
+            limit = request.args.get('limit', None)
+            count = request.args.get('count', None)
+            # Still to fix the next and previous WRT Sqlalchemy
+            next = "/api/v1/post/tags?start=" + \
+                str(int(start)+1)+"&limit="+limit+"&count="+count
+            previous = "/api/v1/post/tags?start=" + \
+                str(int(start)-1)+"&limit="+limit+"&count="+count
+            
+            URL="http://195.15.228.250/edlplanning/edl/tous"
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "start": start,
+                    "limit": limit,
+                    "count": count,
+                    "next": next,
+                    "previous": previous,
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"Planif edl service down"
+                }, 400
 
 
 #edl routes

@@ -1662,10 +1662,10 @@ class typelogemod(Resource):
     @biblio.expect(client)
     def put(self):
         req_data = request.json
-        loge_id=req_data['id']
+        loge_id=req_data['_id']
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/typeloge/update/"+req_data['id']
+            URL="http://195.15.218.172/biblio/typeloge/update/"+req_data['_id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
