@@ -213,7 +213,7 @@ class edluser(Resource):
         500: 'internal server error, please contact admin and report issue'
     })
 @planif.route('/planif/edl/typeloge/data/all')
-class edlall(Resource):
+class edltypelogeall(Resource):
     def get(self):
         if request.args:
             start = request.args.get('start', None)
