@@ -52,10 +52,15 @@ users2= users.model('users', {
     "id": fields.Integer(required=True),
     "nom": fields.String(required=False,default=" ", description="Users nom"),
     "prenom":fields.String(required=False,default=" ", description="Users prenom"),
+    "login":fields.String(required=False,default=" ", description="Users login"),
     "email":fields.String(required=False,default=" ", description="Users Email"),
-    "mdp":fields.String(required=False,default=" ", description="Users mdp"),
+    #"mdp":fields.String(required=False,default=" ", description="Users mdp"),
     "adresse":fields.String(required=False,default=" ", description="Users adresse"),
-    "telephone":fields.String(required=False,default=" ", description="Users trigramme"),
+    "role":fields.String(required=False,default=" ", description="Users role"),
+    "secteur_primaire":fields.String(required=False,default=" ", description="secteur_primaire"),
+    "secteur_secondaire":fields.String(required=False,default=" ", description="secteur_secondaire"),
+    "telephone":fields.String(required=False,default=" ", description="Users telephone"),
+    "trigramme":fields.String(required=False,default=" ", description="Users trigramme"),
 })
  
 
@@ -228,7 +233,17 @@ class Update(Resource):
         if token:
             
             #URL="http://195.15.218.172/edluser/Agentsec/"+str(user_data['id'])
-            URL="http://195.15.228.250/admin_app/admin/"+str(user_data['id'])
+            if user_data['role'] == "Agent secteur":
+                URL="http://195.15.218.172/agent_app/agent/"+str(user_data['id'])
+                user_data['role']=1
+            if user_data['role'] == "Administrateur":    
+                URL="http://195.15.228.250/admin_app/admin/"+str(user_data['id'])
+                
+                del user_data["secteur_primaire"]
+                del user_data["secteur_secondaire"]
+                del user_data["role"]
+                del user_data["trigramme"]
+
             headers ={"Authorization":token}
             #for key,value in user_data.iteritems():
             #    if value == None:
