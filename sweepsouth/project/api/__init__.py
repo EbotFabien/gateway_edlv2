@@ -213,6 +213,7 @@ class Signup(Resource):
                 q = requests.get(url=URL)
                 if q.status_code == 200:
                     v[0]['compte_client']=q.json()
+                
                 else:
                     return {
                             'status':q.status_code,
@@ -222,9 +223,16 @@ class Signup(Resource):
                 if r.status_code == 200 :
                     url1="http://195.15.218.172/synchro/util/ajouter/all"
                     r2 = requests.post(url=url1,json=v)
+
+                    clien=q.json()
+                    clien['utilisateur_id']=v[0]['id']
+                    URL3="http://195.15.218.172/edlgateway/api/v1/participant/client/update" 
+                    qu = requests.get(url=URL3,json=clien)
+
                     return {
                             'status': 1,
                             'synchro_status':r2.status_code,
+                            'synchro_client_data':qu.status_code,
                             'res': r.json(),
                         }, 200
                 else:
