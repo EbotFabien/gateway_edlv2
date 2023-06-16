@@ -1666,7 +1666,7 @@ class typelogemod(Resource):
         token=request.headers['Authorization']
         if token:
             URL="http://195.15.218.172/biblio/typeloge/update/"+req_data['_id']
-            del req_data['id']
+            del req_data['_id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 v=r.json()
