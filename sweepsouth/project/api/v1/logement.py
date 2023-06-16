@@ -1421,6 +1421,38 @@ class voiemod(Resource):
                     }, 403
 
 
+@logement.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/by/user_id/')
+class userbylogement(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.228.250/logement/logement/by/user/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"User service down"
+                }, 400
+
 
 #user
 @logement.doc(
