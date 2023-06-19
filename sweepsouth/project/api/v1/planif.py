@@ -158,6 +158,78 @@ class edlparticpantsign(Resource):
                     "res":"Planif edl service down"
                 }, 400
 
+
+@planif.doc(
+    security='KEY',
+    params={'ID': 'Logement id'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@planif.route('/planif/edl/single_logement/')
+class edlparticpantsign(Resource):
+    def get(self):
+        if request.args:
+            ID = request.args.get('ID', None)
+
+
+            URL="http://195.15.228.250/edlplanning/logement/get/"+ID
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"Planif edl service down"
+                }, 400
+
+@planif.doc(
+    security='KEY',
+    params={'ID': 'Logement id'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@planif.route('/planif/edl/get_all_edl/logement/')
+class edlparticpantsign(Resource):
+    def get(self):
+        if request.args:
+            ID = request.args.get('ID', None)
+
+
+            URL="http://195.15.228.250/edlplanning/edl/logement/"+ID
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"Planif edl service down"
+                }, 400
+
+
 @planif.doc(
     security='KEY',
     params={'ID': 'client id'
