@@ -86,7 +86,7 @@ class clefa(Resource):
             previous = "/api/v1/clefs/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/biblio/Clefs/tous"
+            URL="http://195.15.218.172/biblios/Clefs/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -123,7 +123,7 @@ class clefsi(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/biblio/Clefs/"+start
+            URL="http://195.15.218.172/biblios/Clefs/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -159,7 +159,7 @@ class clefsadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/Clefs/ajouter"
+            URL="http://195.15.218.172/biblios/Clefs/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 v=r.json()
@@ -207,7 +207,7 @@ class clefsmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/Clefs/update/"+req_data['id']
+            URL="http://195.15.218.172/biblios/Clefs/update/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
@@ -264,7 +264,7 @@ class commentairea(Resource):
             previous = "/api/v1/commentaire/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/biblio/commentaire/tous"
+            URL="http://195.15.218.172/biblios/commentaire/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -307,7 +307,7 @@ class commentairespec(Resource):
             # Still to fix the next and previous WRT Sqlalchemy
             
             if type != None  and nature != None:
-                URL="http://195.15.218.172/biblio/commentaire/verify/search/"+type+'/'+nature
+                URL="http://195.15.218.172/biblios/commentaire/verify/search/"+type+'/'+nature
                 r = requests.get(url=URL)
                 if r.status_code == 200:
                     return {
@@ -319,7 +319,7 @@ class commentairespec(Resource):
                     }, 400
             print(nature)
             if type != None  and nature == None:
-                URL="http://195.15.218.172/biblio/commentaire/verify/search/"+type+'/'+'None'
+                URL="http://195.15.218.172/biblios/commentaire/verify/search/"+type+'/'+'None'
                 r = requests.get(url=URL)
                 if r.status_code == 200:
                     return {
@@ -330,7 +330,7 @@ class commentairespec(Resource):
                         "res":"Commentaire biblio service down"
                     }, 400
             if type == None  and nature != None:
-                URL="http://195.15.218.172/biblio/commentaire/search/None/"+nature
+                URL="http://195.15.218.172/biblios/commentaire/search/None/"+nature
                 r = requests.get(url=URL)
                 if r.status_code == 200:
                     return {
@@ -361,7 +361,7 @@ class commentairesin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/biblio/commentaire/"+start
+            URL="http://195.15.218.172/biblios/commentaire/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -397,7 +397,7 @@ class commentadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/commentaire/ajouter"
+            URL="http://195.15.218.172/biblios/commentaire/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -440,7 +440,7 @@ class commentairemod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/commentaire/update/"+req_data['id']
+            URL="http://195.15.218.172/biblios/commentaire/update/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
@@ -485,7 +485,7 @@ class compteuradd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/compteurs/ajouter"
+            URL="http://195.15.218.172/biblios/compteurs/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 v=r.json()
@@ -541,7 +541,7 @@ class compteursa(Resource):
             previous = "/api/v1/compteurs/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/biblio/compteurs/tous"
+            URL="http://195.15.218.172/biblios/compteurs/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -578,7 +578,7 @@ class compteursin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/biblio/compteurs/"+start
+            URL="http://195.15.218.172/biblios/compteurs/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -615,7 +615,7 @@ class compteursmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/compteurs/update/"+req_data['id']
+            URL="http://195.15.218.172/biblios/compteurs/update/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
@@ -664,7 +664,7 @@ class extensionadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/extension/ajouter"
+            URL="http://195.15.218.172/biblios/extension/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 url1="http://195.15.218.172/synchro/extension/ajouter/"
@@ -718,7 +718,7 @@ class extensiona(Resource):
             previous = "/api/v1/extension/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/biblio/extension/tous"
+            URL="http://195.15.218.172/biblios/extension/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -759,7 +759,7 @@ class extensionmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/extension/update/"+req_data['id']
+            URL="http://195.15.218.172/biblios/extension/update/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
@@ -802,7 +802,7 @@ class extensions(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/biblio/extension/"+start
+            URL="http://195.15.218.172/biblios/extension/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -839,7 +839,7 @@ class logementadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/logement/ajouter"
+            URL="http://195.15.218.172/biblios/logement/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -890,7 +890,7 @@ class logementa(Resource):
             previous = "/api/v1/logement/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/biblio/logement/tous"
+            URL="http://195.15.218.172/biblios/logement/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -927,7 +927,7 @@ class logemensin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/biblio/logement/"+start
+            URL="http://195.15.218.172/biblios/logement/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -964,7 +964,7 @@ class logementmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/logement/update/"+req_data['id']
+            URL="http://195.15.218.172/biblios/logement/update/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
@@ -1009,7 +1009,7 @@ class pieceadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/piece/ajouter"
+            URL="http://195.15.218.172/biblios/piece/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
 
@@ -1066,7 +1066,7 @@ class piecea(Resource):
             previous = "/api/v1/piece/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/biblio/piece/tous"
+            URL="http://195.15.218.172/biblios/piece/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1103,7 +1103,7 @@ class piecesin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/biblio/piece/"+start
+            URL="http://195.15.218.172/biblios/piece/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1140,7 +1140,7 @@ class piecemod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/piece/update/"+req_data['id']
+            URL="http://195.15.218.172/biblios/piece/update/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
@@ -1189,7 +1189,7 @@ class rubricadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/Rubric/ajouter"
+            URL="http://195.15.218.172/biblios/Rubric/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 v=r.json()
@@ -1245,7 +1245,7 @@ class rubrica(Resource):
             previous = "/api/v1/rubric/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/biblio/Rubric/tous"
+            URL="http://195.15.218.172/biblios/Rubric/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1282,7 +1282,7 @@ class rubricsin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/biblio/Rubric/"+start
+            URL="http://195.15.218.172/biblios/Rubric/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1318,7 +1318,7 @@ class Rubricmod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/Rubric/update/"+req_data['id']
+            URL="http://195.15.218.172/biblios/Rubric/update/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
@@ -1367,7 +1367,7 @@ class typecomadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/typecom/ajouter"
+            URL="http://195.15.218.172/biblios/typecom/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -1417,7 +1417,7 @@ class typecoma(Resource):
             previous = "/api/v1/typecom/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/biblio/typecom/tous"
+            URL="http://195.15.218.172/biblios/typecom/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1455,7 +1455,7 @@ class typecomsin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/biblio/typecom/"+start
+            URL="http://195.15.218.172/biblios/typecom/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1491,7 +1491,7 @@ class typecommod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/typecom/update/"+req_data['id']
+            URL="http://195.15.218.172/biblios/typecom/update/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
@@ -1535,7 +1535,7 @@ class typelogeadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/typeloge/ajouter"
+            URL="http://195.15.218.172/biblios/typeloge/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 v=r.json()
@@ -1580,7 +1580,7 @@ class typelogesin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/biblio/typeloge/"+start
+            URL="http://195.15.218.172/biblios/typeloge/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1624,7 +1624,7 @@ class typelogea(Resource):
             previous = "/api/v1/typeloge/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/biblio/typeloge/tous"
+            URL="http://195.15.218.172/biblios/typeloge/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1665,7 +1665,7 @@ class typelogemod(Resource):
         loge_id=req_data['_id']
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/typeloge/update/"+req_data['_id']
+            URL="http://195.15.218.172/biblios/typeloge/update/"+req_data['_id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
@@ -1716,7 +1716,7 @@ class voieadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/voie/ajouter"
+            URL="http://195.15.218.172/biblios/voie/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 url1="http://195.15.218.172/synchro/voie/ajouter/"
@@ -1771,7 +1771,7 @@ class voiea(Resource):
             previous = "/api/v1/voie/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/biblio/voie/tous"
+            URL="http://195.15.218.172/biblios/voie/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1808,7 +1808,7 @@ class voiesin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/biblio/voie/"+start
+            URL="http://195.15.218.172/biblios/voie/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -1844,7 +1844,7 @@ class voiemod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblio/voie/update/"+req_data['id']
+            URL="http://195.15.218.172/biblios/voie/update/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :

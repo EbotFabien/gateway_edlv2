@@ -46,7 +46,7 @@ class ReverseProxied(object):
     
 def create_app(configname):
     app = localFlask(__name__)
-    app.wsgi_app = ReverseProxied(app.wsgi_app)
+    #app.wsgi_app = ReverseProxied(app.wsgi_app)
     #app.config.from_object(config[configname])
 
     CORS(app)
