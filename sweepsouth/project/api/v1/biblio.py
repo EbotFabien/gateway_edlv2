@@ -264,7 +264,7 @@ class commentairea(Resource):
             previous = "/api/v1/commentaire/all?start=" + \
                 str(int(start)-1)+"&limit="+limit+"&count="+count
             
-            URL="http://195.15.218.172/biblios/commentaire/tous"
+            URL="http://195.15.218.172/biblios/commentaires/tous"
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -307,7 +307,7 @@ class commentairespec(Resource):
             # Still to fix the next and previous WRT Sqlalchemy
             
             if type != None  and nature != None:
-                URL="http://195.15.218.172/biblios/commentaire/verify/search/"+type+'/'+nature
+                URL="http://195.15.218.172/biblios/commentaires/verify/search/"+type+'/'+nature
                 r = requests.get(url=URL)
                 if r.status_code == 200:
                     return {
@@ -319,7 +319,7 @@ class commentairespec(Resource):
                     }, 400
             print(nature)
             if type != None  and nature == None:
-                URL="http://195.15.218.172/biblios/commentaire/verify/search/"+type+'/'+'None'
+                URL="http://195.15.218.172/biblios/commentaires/verify/search/"+type+'/'+'None'
                 r = requests.get(url=URL)
                 if r.status_code == 200:
                     return {
@@ -330,7 +330,7 @@ class commentairespec(Resource):
                         "res":"Commentaire biblio service down"
                     }, 400
             if type == None  and nature != None:
-                URL="http://195.15.218.172/biblios/commentaire/verify/search/None/"+nature
+                URL="http://195.15.218.172/biblios/commentaires/verify/search/None/"+nature
                 r = requests.get(url=URL)
                 if r.status_code == 200:
                     return {
@@ -361,7 +361,7 @@ class commentairesin(Resource):
     def get(self):
         if request.args:
             start = request.args.get('ID', None)
-            URL="http://195.15.218.172/biblios/commentaire/"+start
+            URL="http://195.15.218.172/biblios/commentaires/"+start
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
@@ -397,7 +397,7 @@ class commentadd(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblios/commentaire/ajouter"
+            URL="http://195.15.218.172/biblios/commentaires/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 return {
@@ -440,7 +440,7 @@ class commentairemod(Resource):
         
         token=request.headers['Authorization']
         if token:
-            URL="http://195.15.218.172/biblios/commentaire/update/"+req_data['id']
+            URL="http://195.15.218.172/biblios/commentaires/update/"+req_data['id']
             del req_data['id']
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
