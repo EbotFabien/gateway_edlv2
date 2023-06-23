@@ -307,7 +307,7 @@ class commentairespec(Resource):
             # Still to fix the next and previous WRT Sqlalchemy
             
             if type != None  and nature != None:
-                URL="http://195.15.218.172/biblios/amsv2com/search/"+type+'/'+nature
+                URL="http://195.15.218.172/biblios/amsv2com/"+type+'/'+nature
                 r = requests.get(url=URL)
                 if r.status_code == 200:
                     return {
@@ -319,7 +319,7 @@ class commentairespec(Resource):
                     }, 400
             print(nature)
             if type != None  and nature == None:
-                URL="http://195.15.218.172/biblios/amsv2com/search/"+type+'/'+'None'
+                URL="http://195.15.218.172/biblios/amsv2com/"+type+'/'+'None'
                 r = requests.get(url=URL)
                 if r.status_code == 200:
                     return {
@@ -330,7 +330,7 @@ class commentairespec(Resource):
                         "res":"Commentaire biblio service down"
                     }, 400
             if type == None  and nature != None:
-                URL="http://195.15.218.172/biblios/amsv2com/search/None/"+nature
+                URL="http://195.15.218.172/biblios/amsv2com/None/"+nature
                 r = requests.get(url=URL)
                 if r.status_code == 200:
                     return {
