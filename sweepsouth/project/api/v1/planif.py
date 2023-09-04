@@ -379,10 +379,20 @@ class edl_add(Resource):
             URL="http://195.15.228.250/edlplanning/edl/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
-                return {
+                URL2="http://195.15.218.172/rdv_app/rdv/"+str(req_data['id_cmd_id'])
+                r2 = requests.put(url=URL2,json={'edl': "1"})
+                if r2.status_code == 200 :
+                    return {
                         'status': 1,
+                        'res_put':r2.json(),
                         'res': r.json(),
                     }, 200
+                else:
+                    return {
+                            'status': 1,
+                            'status_put':r2.status_code,
+                            'res': r.json(),
+                        }, 200
             else:
                 return {
                         'status':0,
