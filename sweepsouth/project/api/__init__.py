@@ -139,12 +139,12 @@ class Login(Resource):
         username=req_data['username']
         password=req_data['password']
         if username and password:
-            URL="http://195.15.228.250/manager_app/login/"
+            URL="http://195.15.218.172/manager_app/login/"
             r = requests.post(url=URL,json=req_data)
             
             if r.status_code == 200 :
                 data=r.json()
-                
+                #print(data)
                 URL="http://195.15.218.172/edluser/Agentsec/"+str(data["id"])
             
                 v = requests.get(url=URL)
@@ -162,6 +162,12 @@ class Login(Resource):
                                 'status': "No client,it is an admin or its not assigned",
                                 'res': data,
                             }, 200
+                else:
+                    data['client_data']=None
+                    return {
+                            'status':"Failed to load client",
+                            'res': data,
+                            },200
 
             else:
                 return {
