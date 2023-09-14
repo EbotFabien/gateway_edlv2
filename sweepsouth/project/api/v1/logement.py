@@ -425,7 +425,7 @@ class clientin(Resource):
                 return{
                     "res":"User service down"
                 }, 400
-'''
+
 @logement.doc(
     security='KEY',
     params={'ID': 'Identity of User'
@@ -457,7 +457,7 @@ class compte_client_log(Resource):
             else:
                 return{
                     "res":"logement/compte_client service down"
-                }, 400'''
+                }, 400
 
 
 @logement.doc(
