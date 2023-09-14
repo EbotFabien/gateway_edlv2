@@ -418,11 +418,45 @@ class clientin(Resource):
             r = requests.get(url=URL)
             if r.status_code == 200:
                 return {
+
                     "results":r.json()
                 }, 200
             else:
                 return{
                     "res":"User service down"
+                }, 400
+
+@logement.doc(
+    security='KEY',
+    params={'ID': 'Identity of User'
+            },
+    responses={
+        200: 'ok',
+        201: 'created',
+        204: 'No Content',
+        301: 'Resource was moved',
+        304: 'Resource was not Modified',
+        400: 'Bad Request to server',
+        401: 'Unauthorized request from client to server',
+        403: 'Forbidden request from client to server',
+        404: 'Resource Not found',
+        500: 'internal server error, please contact admin and report issue'
+    })
+@logement.route('/logement/single/logement/compte_client/')
+class compte_client_log(Resource):
+    def get(self):
+        if request.args:
+            start = request.args.get('ID', None)
+            URL="http://195.15.228.250/logement/logement/by_compte_client/"+start
+            r = requests.get(url=URL)
+            if r.status_code == 200:
+                return {
+
+                    "results":r.json()
+                }, 200
+            else:
+                return{
+                    "res":"logement/compte_client service down"
                 }, 400
 
 
@@ -517,6 +551,8 @@ class clienta(Resource):
                 return{
                     "res":"compteurs logement service down"
                 }, 400
+
+
 
 
 @logement.doc(
