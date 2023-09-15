@@ -374,13 +374,14 @@ class edl_add(Resource):
     @planif.expect(parti)
     def post(self):
         req_data = request.get_json()
-        token=request.headers['Authorization']
+        token='Bearer '+request.headers['Authorization']
         if token:
+            headers ={"Authorization":token}
             URL="http://195.15.228.250/edlplanning/edl/ajouter"
             r = requests.post(url=URL,json=req_data)
             if r.status_code == 200 :
                 URL2="http://195.15.218.172/rdv_app/rdv/"+str(req_data['id_cmd_id'])
-                r2 = requests.put(url=URL2,json={'edl': "1"})
+                r2 = requests.put(url=URL2,headers=headers,json={'edl': "1"})
                 if r2.status_code == 200 :
                     return {
                         'status': 1,
