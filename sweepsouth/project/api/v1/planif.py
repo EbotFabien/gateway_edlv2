@@ -22,10 +22,10 @@ def token_required(f):
         token = None
         if 'Authorization' in request.headers:
             token = request.headers['Authorization']
-            '''URL="http://195.15.218.172/security/manager_app/viewset/role/"
-            params ={"token":token}
-            r = requests.post(url=URL,params=params)
-            print(r)'''
+            try:
+                user = requests.get("http://195.15.218.172/security/manager_app/viewset/role/?token="+token,headers={"Authorization":"Bearer "+token}).json()[0]
+            except KeyError:
+                return {'message': 'Token is invalid.'}, 403
         if not token:
             return {'message': 'Token is missing or not found.'}, 401
         if token :
