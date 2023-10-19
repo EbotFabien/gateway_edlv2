@@ -376,7 +376,7 @@ class edl_add(Resource):
         req_data = request.get_json()
         token=request.headers['Authorization']
         if token:
-           
+           #token 
             headers={"Authorization":"Bearer "+token}
             URL="http://195.15.228.250/edlplanning/edl/ajouter"
             r = requests.post(url=URL,json=req_data)
